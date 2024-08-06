@@ -55,11 +55,34 @@ def pretty_print_dollars(number):
     if negative:
         number -= (number * 2)
     number = float(f"{number:.2f}")
-    return ("-" if negative else "") + "$" + pretty_print_int(number)
+    return ("-" if negative else "") + "$" + pretty_print_int(number) + ("0" if check_if_two_digits(number) else "")
 # TODO 1: Place your code for `pretty_print_int` here
 def pretty_print_int(number):
     ans = f"{number:,}"
     return ans
 
+def check_if_two_digits(number):
+    number = str(number)
+    return number[-2] == "."
+
 ########################################################################################################################
 
+# TODO 3: Place your code for `make_field` here
+def make_field(content, length):
+    content = str(content)
+    if len(content) < length - 2:
+        return "|" + content.rjust(length - 1) + " |"
+    if len(content) == length - 2:
+        return "| " + content + " |"
+    else:
+        return "| " + content[0:length - 2] + " |"
+        
+########################################################################################################################
+
+# TODO 4: Place your code for `make_line` here
+def make_line(length):
+    return "+" + ("-" * length) + "+"
+
+########################################################################################################################
+
+def simulate_infection(
