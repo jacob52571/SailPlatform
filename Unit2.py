@@ -84,5 +84,32 @@ def make_line(length):
     return "+" + ("-" * length) + "+"
 
 ########################################################################################################################
+# TODO 5: Place your code for `simulate_infection` here
+import math
 
-def simulate_infection(
+def simulate_infection(population, initial_infected, r_number):
+    infected = initial_infected
+    deceased = 0
+    day = 1
+    while deceased < population:
+        print(str(day) + " " + str(population - deceased))
+        deceased += infected
+        infected *= r_number
+        infected = math.ceil(infected)
+        day += 1
+
+########################################################################################################################
+import math
+
+def compound_interest(init_principal, acc_rate, acc_cmp_freq, years):
+    if acc_cmp_freq == 0:
+        return init_principal * math.e ** (acc_rate * years)
+    else:
+        return init_principal * (1 + (acc_rate / acc_cmp_freq)) ** (acc_cmp_freq * years)
+
+########################################################################################################################
+
+def simulate_account_balance(init_principal, acc_rate, acc_cmp_freq, setup_fee, years):
+   
+        
+        
