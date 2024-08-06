@@ -192,8 +192,7 @@ def simulate_infection_pp(population, initial_infected, r_number):
     res = make_line(5) + make_line(12) + "\n" + make_field("Day", 5) + make_field("Population", 12) + "\n" + make_line(5) + make_line(12) + "\n" + simulate_infection(population, initial_infected, r_number) + make_line(5) + make_line(12)
     print(res)
 
-### should work but idk why not
-
+### 
 # TODO 9: Place your code for `simulate_account_balance_pp` here
 def pretty_print_int(number):
     ans = f"{number:,}"
@@ -239,27 +238,23 @@ def compound_interest(init_principal, acc_rate, acc_cmp_freq, years):
 
 def simulate_account_balance(init_principal, acc_rate, acc_cmp_freq, setup_fee, years):
     res_list = []
-    count = 0
     init_principal -= setup_fee
     for i in range(years):
         new_balance = compound_interest(init_principal, acc_rate, acc_cmp_freq, i + 1)
         if i % 2 == 1:
-            print(count)
-            res_list[count] = str(i + 1)
-            count += 1
-            res_list[count] = pretty_print_dollars(new_balance)
-            count += 1
+            res_list.append(str(i + 1))
+            res_list.append(pretty_print_dollars(new_balance))
     return res_list
 
 def simulate_account_balance_pp(init_principal, acc_rate, acc_cmp_freq, setup_fee, years):
     interest_list = simulate_account_balance(init_principal, acc_rate, acc_cmp_freq, setup_fee, years)
     str1 = interest_list[-1]
     str2 = "Balance"
-    longest_length = math.max(str1, str2)
-    res = make_line(6) + make_line(longest_length) + "\n" + make_field("Year", 6) + make_field("Balance", longest_length) + "\n" + make_line(6) + make_line(longest_length)
-    for i in range(years / 2):
-        res += make_field(interest_list[i * 2], 5) + make_field(interest_list[i * 2 + 1], longest_length) + "\n"
+    longest_length = max(len(str1), len(str2)) + 2
+    res = make_line(6) + make_line(longest_length) + "\n" + make_field("Year", 6) + make_field("Balance", longest_length) + "\n" + make_line(6) + make_line(longest_length) + "\n"
+    for i in range(years // 2):
+        res += make_field(interest_list[i * 2], 6) + make_field(interest_list[i * 2 + 1], longest_length) + "\n"
     res += make_line(6) + make_line(longest_length)
     print(res)
 
-simulate_account_balance_pp(100000.00, 0.022, 0, 10.0, 15)
+########################################################################################################################
