@@ -291,3 +291,114 @@ if __name__ == '__main__':
     out = f.readlines()
     for i in range(len(out)):
         print(out[i] + "\n")
+
+#
+
+import os
+
+def get_path_depth(path):
+    path = os.path.normpath(path)
+    return len(path.split(os.sep))
+
+def generate_dir_report(path, report_file_path, show_files=True):
+    f = open(report_file_path, "w")
+    main_path_depth = get_path_depth(path)
+    abs_path = os.path.abspath(path)
+    for root, dirs, files in sorted(os.walk(path)):
+        dir_indent = get_path_depth(root) - main_path_depth - 1
+        file_indent = dir_indent + 1
+        if os.path.abspath(root) == abs_path:
+            f.write("+ " + os.path.basename(root) + "\n")
+        else:
+            f.write("  " * dir_indent + "|-+ " + os.path.basename(root) + "\n")
+        # folders: |-+ fdsa
+        # files:   |-- fdsa
+        if show_files:
+            for file_name in files:
+                f.write("  " * file_indent + "|-- " + file_name + "\n")
+    f.close()
+
+if __name__ == '__main__':
+    generate_dir_report('data/dir-top', 'dir-report.txt')
+    f = open("dir-report.txt")
+    out = f.readlines()
+    for i in range(len(out)):
+        print(out[i] + "\n")
+
+#
+
+import os
+
+def get_path_depth(path):
+    path = os.path.normpath(path)
+    return len(path.split(os.sep))
+
+def generate_dir_report(path, report_file_path, show_files=True, num_files=True):
+    f = open(report_file_path, "w")
+    main_path_depth = get_path_depth(path)
+    abs_path = os.path.abspath(path)
+    for root, dirs, files in sorted(os.walk(path)):
+        count = 0
+        for file_name in files:
+            count += 1
+        string_count = " (" + str(count) + " files)"
+        dir_indent = get_path_depth(root) - main_path_depth - 1
+        file_indent = dir_indent + 1
+        if os.path.abspath(root) == abs_path:
+            f.write("+ " + os.path.basename(root) + (str(string_count) if num_files else "") + "\n")
+        else:
+            f.write("  " * dir_indent + "|-+ " + os.path.basename(root) + (str(string_count) if num_files else "") + "\n")
+        # folders: |-+ fdsa
+        # files:   |-- fdsa
+        if show_files:
+            for file_name in files:
+                f.write("  " * file_indent + "|-- " + file_name + "\n")
+    f.close()
+
+if __name__ == '__main__':
+    generate_dir_report('data/dir-top', 'dir-report.txt')
+    f = open("dir-report.txt")
+    out = f.readlines()
+    for i in range(len(out)):
+        print(out[i] + "\n")
+
+# also doesn't work :(
+
+import os
+
+def get_path_depth(path):
+    path = os.path.normpath(path)
+    return len(path.split(os.sep))
+
+def generate_dir_report(path, report_file_path, show_files=True, num_files=True, file_size=False):
+    f = open(report_file_path, "w")
+    main_path_depth = get_path_depth(path)
+    abs_path = os.path.abspath(path)
+    for root, dirs, files in sorted(os.walk(path)):
+        count = 0
+        for file_name in files:
+            count += 1
+        string_count = " (" + str(count) + " files)"
+        dir_indent = get_path_depth(root) - main_path_depth - 1
+        file_indent = dir_indent + 1
+        if os.path.abspath(root) == abs_path:
+            f.write("+ " + os.path.basename(root) + (str(string_count) if num_files else "") + "\n")
+        else:
+            f.write("  " * dir_indent + "|-+ " + os.path.basename(root) + (str(string_count) if num_files else "") + "\n")
+        # folders: |-+ fdsa
+        # files:   |-- fdsa
+        if show_files:
+            for file_name in files:
+                full_path = os.path.basename(root) + file_name
+                size = " (" + os.stat(full_path) + " bytes)"
+                f.write("  " * file_indent + "|-- " + file_name + (size.st_size if file_size else "") + "\n")
+                
+    f.close()
+
+if __name__ == '__main__':
+    generate_dir_report('data/dir-top', 'dir-report.txt')
+    f = open("dir-report.txt")
+    out = f.readlines()
+    for i in range(len(out)):
+        print(out[i] + "\n")
+
