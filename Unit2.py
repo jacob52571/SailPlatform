@@ -110,6 +110,8 @@ def compound_interest(init_principal, acc_rate, acc_cmp_freq, years):
 ########################################################################################################################
 
 def simulate_account_balance(init_principal, acc_rate, acc_cmp_freq, setup_fee, years):
-   
-        
-        
+    init_principal -= setup_fee
+    for i in range(years):
+        new_balance = compound_interest(init_principal, acc_rate, acc_cmp_freq, i + 1)
+        if i % 2 == 1:
+            print(str(i + 1) + " " + str(new_balance))
