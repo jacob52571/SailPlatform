@@ -259,8 +259,6 @@ def simulate_account_balance_pp(init_principal, acc_rate, acc_cmp_freq, setup_fe
 
 ########################################################################################################################
 ########################################################################################################################
-# pls help
-
 import os
 
 def get_path_depth(path):
@@ -268,29 +266,33 @@ def get_path_depth(path):
     return len(path.split(os.sep))
 
 def generate_dir_report(path, report_file_path):
-    f = open(report_file_path, "w")
-    main_path_depth = get_path_depth(path)
-    abs_path = os.path.abspath(path)
-    for root, dirs, files in sorted(os.walk(path)):
-        dir_indent = get_path_depth(root) - main_path_depth - 1
-        file_indent = dir_indent + 1
-        if os.path.abspath(root) == abs_path:
-            f.write("+ " + os.path.basename(root) + "\n")
-        else:
-            f.write("  " * dir_indent + "|-+ " + os.path.basename(root) + "\n")
-        # folders: |-+ fdsa
-        # files:   |-- fdsa
-        for file_name in files:
-            f.write("  " * file_indent + "|-- " + file_name + "\n")
-    f.close()
+    with open(report_file_path, "w") as f:
+        main_path_depth = get_path_depth(path)
+        abs_path = os.path.abspath(path)
+        for root, dirs, files in sorted(os.walk(path)):
+            # Sort directories and files for consistent output
+            dirs.sort()
+            files.sort()
 
-#testing only
+            dir_indent = get_path_depth(root) - main_path_depth - 1
+            file_indent = dir_indent + 1
+            if os.path.abspath(root) == abs_path:
+                f.write("+ " + os.path.basename(root) + "\n")
+            else:
+                f.write("  " * dir_indent + "|-+ " + os.path.basename(root) + "\n")
+            # folders: |-+ fdsa
+            # files:   |-- fdsa
+            for file_name in files:
+                f.write("  " * file_indent + "|-- " + file_name + "\n")
+
+# testing only
 if __name__ == '__main__':
     generate_dir_report('data/dir-top', 'dir-report.txt')
-    f = open("dir-report.txt")
-    out = f.readlines()
-    for i in range(len(out)):
-        print(out[i] + "\n")
+    with open("dir-report.txt") as f:
+        out = f.readlines()
+        for line in out:
+            print(line.strip())
+
 
 ########################################################################################################################
 
