@@ -124,19 +124,39 @@ def convert_container(container, container_type):
             for i in range(len(container)):
                 new_container[container[i]] = None
             return new_container
-        if container_type == 'set':
+        elif container_type == 'set':
             new_container = {}
             for i in range(len(container)):
                 new_container.add(container[i])
             return new_container
+        elif container_type == 'tuple':
+            new_container = ()
+            for i in container:
+                new_container = new_container + (i,)
+            return new_container
+        elif container_type == 'list':
+            return container
     if isinstance(container, dict):
         if container_type == 'dict':
             return container
-        if container_type == 'set':
+        elif container_type == 'set':
             new_container = {}
-            for i in range(len(container)):
-                
-            
+            for i in container.keys():
+                thing_to_add = (i, container.get(i))
+                new_container.add(thing_to_add)
+            return new_container   
+        elif container_type == 'tuple':
+            new_container = ()
+            for i in container.keys():
+                thing_to_add = (i, container.get(i))
+                new_container = new_container + (thing_to_add,)
+            return new_container
+        elif container_type == 'list':
+            new_container = []
+            for i in container.keys()
+                thing_to_add = (i, container.get(i))
+                new_container.append(thing_to_add)
+            return new_container
     if isinstance(container, set):
         if container_type == 'dict':
             new_container = {}
@@ -146,6 +166,19 @@ def convert_container(container, container_type):
                 else:
                     new_container[x] = None
             return new_container
+        elif container_type == 'set':
+            return container
+        elif container_type == 'tuple':
+            new_container = ()
+            for i in container:
+                new_container = new_container + (i,)
+            return new_container
+        elif container_type == 'list':
+            new_container = []
+            for i in container:
+                new_container.append(i)
+            return new_container
+    #todo find out if any of this is right since im dumb
     if isinstance(container, tuple):
         if container_type == 'dict':
             new_container = {}
@@ -155,4 +188,7 @@ def convert_container(container, container_type):
                 else:
                     new_container[container[i]] = None
             return new_container
+        elif container_type == 'set':
+            pass
+            
     
