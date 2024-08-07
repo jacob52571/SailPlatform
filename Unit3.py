@@ -124,10 +124,35 @@ def convert_container(container, container_type):
             for i in range(len(container)):
                 new_container[container[i]] = None
             return new_container
+        if container_type == 'set':
+            new_container = {}
+            for i in range(len(container)):
+                new_container.add(container[i])
+            return new_container
     if isinstance(container, dict):
         if container_type == 'dict':
             return container
+        if container_type == 'set':
+            new_container = {}
+            for i in range(len(container)):
+                
+            
     if isinstance(container, set):
         if container_type == 'dict':
-            
+            new_container = {}
+            for x in container:
+                if isinstance(x, tuple):
+                    new_container[x[0]] = x[1]
+                else:
+                    new_container[x] = None
+            return new_container
+    if isinstance(container, tuple):
+        if container_type == 'dict':
+            new_container = {}
+            for i in range(len(container)):
+                if isinstance(container[i], tuple):
+                    new_container[container[i][0]] = container[i][1]
+                else:
+                    new_container[container[i]] = None
+            return new_container
     
