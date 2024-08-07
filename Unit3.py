@@ -47,3 +47,44 @@ def add_item(item, container, position=None):
 
 ########################################################################################################################
 
+# TODO 4: Implement the `remove_item` function here.
+def remove_item(item, container, multi = True):
+    if isinstance(container, list):
+        if not multi:
+            container.remove(item)
+        else:
+            i = 0
+            while True:
+                print(i)
+                print("comparing " + str(container[i]) + " with " + str(item))
+                if container[i] == item:
+                    print("popping index " + str(i))
+                    container.pop(i)
+                    i -= 1
+                print("new length: " + str(len(container)))
+                if (i >= len(container)):
+                    break
+    elif isinstance(container, dict):
+        container.pop(item)
+    elif isinstance(container, set):
+        container.remove(item)
+    elif isinstance(container, tuple):
+        container = list(container)
+        if not multi:
+            container.remove(item)
+        else:
+            for i in range(len(container)):
+                if container[i] == item:
+                    container.pop(i)
+                    i -= 1
+        container = tuple(container)
+    return container
+
+if __name__ == '__main__':
+    container = [1, 2, 3, 4, 1]
+    container = remove_item(1, container, False)
+    # container is now [2, 3, 4, 1]
+
+    container = [1, 2, 3, 4, 1]
+    container = remove_item(1, container)
+    # container is now [2, 3, 4]
