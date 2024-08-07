@@ -292,7 +292,7 @@ if __name__ == '__main__':
     for i in range(len(out)):
         print(out[i] + "\n")
 
-#
+########################################################################################################################
 
 import os
 
@@ -325,7 +325,7 @@ if __name__ == '__main__':
     for i in range(len(out)):
         print(out[i] + "\n")
 
-#
+########################################################################################################################
 
 import os
 
@@ -362,7 +362,7 @@ if __name__ == '__main__':
     for i in range(len(out)):
         print(out[i] + "\n")
 
-# also doesn't work :(
+########################################################################################################################
 
 import os
 
@@ -389,9 +389,10 @@ def generate_dir_report(path, report_file_path, show_files=True, num_files=True,
         # files:   |-- fdsa
         if show_files:
             for file_name in files:
-                full_path = os.path.basename(root) + file_name
-                size = " (" + os.stat(full_path) + " bytes)"
-                f.write("  " * file_indent + "|-- " + file_name + (size.st_size if file_size else "") + "\n")
+                full_path = os.path.abspath(root) + "/" + file_name
+                a = os.stat(full_path)
+                size = " (" + str(a.st_size) + " bytes)"
+                f.write("  " * file_indent + "|-- " + file_name + (size if file_size else "") + "\n")
                 
     f.close()
 
@@ -402,3 +403,43 @@ if __name__ == '__main__':
     for i in range(len(out)):
         print(out[i] + "\n")
 
+########################################################################################################################
+
+import os
+
+def get_path_depth(path):
+    path = os.path.normpath(path)
+    return len(path.split(os.sep))
+
+def generate_dir_report(path, report_file_path, show_files=True, num_files=True, file_size=False, hl=None):
+    if hl is None:
+        hl = ""
+    f = open(report_file_path, "w")
+    main_path_depth = get_path_depth(path)
+    abs_path = os.path.abspath(path)
+    for root, dirs, files in sorted(os.walk(path)):
+        count = 0
+        for file_name in files:
+            count += 1
+        string_count = " (" + str(count) + " files)"
+        dir_indent = get_path_depth(root) - main_path_depth - 1
+        file_indent = dir_indent + 1
+        if os.path.abspath(root) == abs_path:
+            f.write("+ " + os.path.basename(root) + (str(string_count) if num_files else "") + "\n")
+        else:
+            f.write("  " * dir_indent + "|-+ " + os.path.basename(root) + (str(string_count) if num_files else "") + "\n")
+        if show_files:
+            for file_name in files:
+                full_path = os.path.abspath(root) + "/" + file_name
+                a = os.stat(full_path)
+                size = " (" + str(a.st_size) + " bytes)"
+                f.write("  " * file_indent + "|-- " + file_name + (size if file_size else "") + (" <--" if file_name.split(".")[-1] == hl else "") + "\n")
+                
+    f.close()
+
+if __name__ == '__main__':
+    generate_dir_report('data/dir-top', 'dir-report.txt', show_files=True, num_files=True, file_size=True, hl="log")
+    f = open("dir-report.txt")
+    out = f.readlines()
+    for i in range(len(out)):
+        print(out[i] + "\n")
