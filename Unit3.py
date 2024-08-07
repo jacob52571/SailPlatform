@@ -53,17 +53,11 @@ def remove_item(item, container, multi = True):
         if not multi:
             container.remove(item)
         else:
-            i = 0
-            while True:
-                print(i)
-                print("comparing " + str(container[i]) + " with " + str(item))
-                if container[i] == item:
-                    print("popping index " + str(i))
-                    container.pop(i)
-                    i -= 1
-                print("new length: " + str(len(container)))
-                if (i >= len(container)):
-                    break
+            new_container = []
+            for i in range(len(container)):
+                if container[i] != item:
+                    new_container.append(container[i])
+            return new_container
     elif isinstance(container, dict):
         container.pop(item)
     elif isinstance(container, set):
@@ -72,19 +66,55 @@ def remove_item(item, container, multi = True):
         container = list(container)
         if not multi:
             container.remove(item)
+            return tuple(container)
         else:
+            new_container = []
             for i in range(len(container)):
-                if container[i] == item:
-                    container.pop(i)
-                    i -= 1
-        container = tuple(container)
+                if container[i] != item:
+                    new_container.append(container[i])
+            return tuple(new_container)
     return container
 
-if __name__ == '__main__':
-    container = [1, 2, 3, 4, 1]
-    container = remove_item(1, container, False)
-    # container is now [2, 3, 4, 1]
+########################################################################################################################
 
-    container = [1, 2, 3, 4, 1]
-    container = remove_item(1, container)
-    # container is now [2, 3, 4]
+# TODO 5: Implement the `update_item` function here.
+def update_item(orig_item, new_item, container, multi = True):
+    if isinstance(container, list):
+        new_container = []
+        has_replaced = False
+        for i in range(len(container)):
+            if container[i] == orig_item and (multi or not has_replaced):
+                new_container.append(new_item)
+                has_replaced = True
+            else:
+                new_container.append(container[i])
+        return new_container
+    elif isinstance(container, dict):
+        if isinstance(new_item, tuple) and len(new_item) == 2:
+            # remove orig_item and add the tuple
+            container.pop(orig_item)
+            container[new_item[0]] = new_item[1]
+            return container
+        else:
+            container.update({orig_item: new_item})
+            return container
+    elif isinstance(container, set):
+        container.remove(orig_item)
+        container.add(new_item)
+        return container
+    elif isinstance(container, tuple):
+        container = list(container)
+        new_container = []
+        has_replaced = False
+        for i in range(len(container)):
+            if container[i] == orig_item and (multi or not has_replaced):
+                new_container.append(new_item)
+                has_replaced = True
+            else:
+                new_container.append(container[i])
+        return tuple(new_container)
+
+########################################################################################################################
+
+def convert_container(container, container_type):
+    
