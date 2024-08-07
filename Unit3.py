@@ -115,6 +115,19 @@ def update_item(orig_item, new_item, container, multi = True):
         return tuple(new_container)
 
 ########################################################################################################################
-
+# not done
+# TODO 6: Implement the `convert_container` function here.
 def convert_container(container, container_type):
+    if isinstance(container, list):
+        if container_type == 'dict':
+            new_container = {}
+            for i in range(len(container)):
+                new_container[container[i]] = None
+            return new_container
+    if isinstance(container, dict):
+        if container_type == 'dict':
+            return container
+    if isinstance(container, set):
+        if container_type == 'dict':
+            
     
