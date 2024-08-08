@@ -115,17 +115,19 @@ def update_item(orig_item, new_item, container, multi = True):
         return tuple(new_container)
 
 ########################################################################################################################
-# not done
 # TODO 6: Implement the `convert_container` function here.
 def convert_container(container, container_type):
     if isinstance(container, list):
         if container_type == 'dict':
             new_container = {}
             for i in range(len(container)):
-                new_container[container[i]] = None
+                if isinstance(container[i], tuple):
+                    new_container[container[i][0]] = container[i][1]
+                else:
+                    new_container[container[i]] = None
             return new_container
         elif container_type == 'set':
-            new_container = {}
+            new_container = set()
             for i in range(len(container)):
                 new_container.add(container[i])
             return new_container
@@ -140,7 +142,7 @@ def convert_container(container, container_type):
         if container_type == 'dict':
             return container
         elif container_type == 'set':
-            new_container = {}
+            new_container = set()
             for i in container.keys():
                 thing_to_add = (i, container.get(i))
                 new_container.add(thing_to_add)
@@ -153,7 +155,7 @@ def convert_container(container, container_type):
             return new_container
         elif container_type == 'list':
             new_container = []
-            for i in container.keys()
+            for i in container.keys():
                 thing_to_add = (i, container.get(i))
                 new_container.append(thing_to_add)
             return new_container
@@ -189,6 +191,14 @@ def convert_container(container, container_type):
                     new_container[container[i]] = None
             return new_container
         elif container_type == 'set':
-            pass
-            
-    
+            new_container = set()
+            for i in range(len(container)):
+                new_container.add(container[i])
+            return new_container
+        elif container_type == 'tuple':
+            return container
+        elif container_type == 'list':
+            new_container = []
+            for i in container:
+                new_container.append(i)
+            return new_container
