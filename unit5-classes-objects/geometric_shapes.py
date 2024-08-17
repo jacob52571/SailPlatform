@@ -74,7 +74,7 @@ class Circle(Ellipse):
         super().set_name("Circle")
     
     def get_radius(self):
-        return super().get_semi_major_axis
+        return super().get_semi_major_axis()
     
     def set_radius(self, radius):
         super().set_semi_major_axis(radius)

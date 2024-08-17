@@ -1,0 +1,22 @@
+[WARNING] 2024-08-16 GMT-0700 20:56:03.350: Could not find stored credentials.
+[INFO] 2024-08-16 GMT-0700 20:56:03.350: Asking for the Username.
+[DEBUG] 2024-08-16 GMT-0700 20:56:05.248: The provided Username has been stored in a keyring application.
+[WARNING] 2024-08-16 GMT-0700 20:56:05.250: Could not find stored credentials.
+[INFO] 2024-08-16 GMT-0700 20:56:05.250: Asking for the Submission Password.
+[DEBUG] 2024-08-16 GMT-0700 20:56:08.268: The provided Submission Password has been stored in a keyring application.
+[INFO] 2024-08-16 GMT-0700 20:56:08.269: Submission process STARTED.
+[INFO] 2024-08-16 GMT-0700 20:56:08.269: Asking for agreement.
+[DEBUG] 2024-08-16 GMT-0700 20:56:10.316: Agreement answer: I AGREE
+[DEBUG] 2024-08-16 GMT-0700 20:56:10.317: Task signature: sail2-project-author-classes-o-hcjnaayu-v2-c82f9dd1-8ae0-4e70-852c-5ecc03cead51
+[INFO] 2024-08-16 GMT-0700 20:56:10.317: Collecting information about context.
+[INFO] 2024-08-16 GMT-0700 20:56:10.457: Finding files for submission.
+[INFO] 2024-08-16 GMT-0700 20:56:10.457: Generating submission files for task 3.
+[INFO] 2024-08-16 GMT-0700 20:56:10.457: Evaluating task 3.
+[INFO] 2024-08-16 GMT-0700 20:56:10.607: Submission archive generated.
+[INFO] 2024-08-16 GMT-0700 20:56:10.607: Sending the submission to Sail() Auto-grading Service.
+[DEBUG] 2024-08-16 GMT-0700 20:56:12.206: AGS Success: True
+[DEBUG] 2024-08-16 GMT-0700 20:56:12.206: AGS Status: 200
+[DEBUG] 2024-08-16 GMT-0700 20:56:12.206: AGS Message: Your submission is in processing, submission token is: s26600004@stu.tempeunion.org_project-author-classes-o-hcjnaayu_c82f9dd1-8ae0-4e70-852c-5ecc03cead51_1713846710 Wait and check your code, score and feedback on your Learning Management System.
+[INFO] 2024-08-16 GMT-0700 20:56:12.207: Finding files for cleanup.
+[INFO] 2024-08-16 GMT-0700 20:56:12.208: Cleanup finished.
+[INFO] 2024-08-16 GMT-0700 20:56:12.208: Submission process FINISHED.
