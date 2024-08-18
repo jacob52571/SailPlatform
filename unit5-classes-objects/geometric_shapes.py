@@ -12,7 +12,9 @@ class GeometricShape:
     def __repr__(self):
         return f"GeometricShape(name={self.get_name()})"
     def __eq__(self, other):
-        return self.get_name() == other.get_name()
+        if isinstance(other, GeometricShape):
+            return self.get_name() == other.get_name()
+        return False
 
 class Rectangle(GeometricShape):
     def __init__(self, length, width):
@@ -41,10 +43,12 @@ class Rectangle(GeometricShape):
         return self.get_length() * self.get_width()
     
     def __repr__(self):
-        return f"Rectangle(a={self.get_length()},b={self.get_width()})"
+        return f"Rectangle(a={self.get_length()}, b={self.get_width()})"
     
     def __eq__(self, other):
-        return self.get_length() == other.get_length() and self.get_width() == other.get_width()
+        if isinstance(other, Rectangle):
+            return self.get_length() == other.get_length() and self.get_width() == other.get_width()
+        return False
     
 class Square(Rectangle):
     def __init__(self, side):
@@ -59,10 +63,12 @@ class Square(Rectangle):
         super().set_width(side)
 
     def __repr__(self):
-        return f"Square(a={self.get_side})"
+        return f"Square(a={self.get_side()})"
     
     def __eq__(self, other):
-        return self.get_side() == other.get_side()
+        if isinstance(other, Square):
+            return self.get_side() == other.get_side()
+        return False
 
 class Ellipse(GeometricShape):
     def __init__(self, semi_major_axis, semi_minor_axis):
@@ -91,10 +97,12 @@ class Ellipse(GeometricShape):
         return math.pi * self.get_semi_major_axis() * self.get_semi_minor_axis()
     
     def __repr__(self):
-        return f"Ellipse(r1={self.get_semi_major_axis()},r2={self.get_semi_minor_axis()})"
+        return f"Ellipse(r1={self.get_semi_major_axis()}, r2={self.get_semi_minor_axis()})"
     
     def __eq__(self, other):
-        return self.get_semi_major_axis() == other.get_semi_major_axis() and self.get_semi_minor_axis() == other.get_semi_minor_axis()
+        if isinstance(other, Ellipse):
+            return self.get_semi_major_axis() == other.get_semi_major_axis() and self.get_semi_minor_axis() == other.get_semi_minor_axis()
+        return False
     
 class Circle(Ellipse):
     def __init__(self, radius):
@@ -112,7 +120,9 @@ class Circle(Ellipse):
         return f"Circle(r={self.get_radius()})"
     
     def __eq__(self, other):
-        return self.get_radius() == other.get_radius()
+        if isinstance(other, Circle):
+            return self.get_radius() == other.get_radius()
+        return False
 
 class ComplexShape(GeometricShape):
     def __init__(self, base, holes):
@@ -158,4 +168,4 @@ class ComplexShape(GeometricShape):
         return self.get_base().get_perimeter() + hole_lengths
     
     def __repr__(self):
-        return f"ComplexShape({self.get_base().get_name()} with {len(self.get_holes)} holes)"
+        return f"ComplexShape({self.get_base().get_name()} with {len(self.get_holes())} holes)"
