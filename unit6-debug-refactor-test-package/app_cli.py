@@ -37,6 +37,7 @@ class AppEngine:
             self.shopping_list.refresh(item_pool = self.items)
             self.message = (f'Shopping list with {len(self.shopping_list)} items has been created.')
         elif cmd.startswith('show'):
+            print(cmd)
             self.process_show(cmd)
         elif cmd.startswith('add'):
             self.process_add_item(cmd)
@@ -65,7 +66,7 @@ class AppEngine:
     def process_show(self, cmd):
         what = cmd[ 5: ]
         if what == 'items' :
-            self.message = self.items.show_items()
+            self.message = self.show_items()
         elif what == 'list' :
             self.message = self.shopping_list.show_list()
         else:
@@ -88,6 +89,23 @@ class AppEngine:
         item_name = cmd[4: ]
         self.items.remove_item( item_name )
         self.message =f'{item_name} removed successfully.'
+
+    def show_items(self):
+        max_name, max_order = 0, 0
+        print(type(self.shopping_list))
+        for item in self.shopping_list.item_pool.values():
+            max_name = max(max_name, len(item.name))
+            max_order = max(max_order, item.get_order())
+        out = 'ITEMS\n'
+        line_base_len = len('ITEMS') - 4
+        max_item = max(len(item.name) for item, _ in self.list)
+        line_base_len = max(max_item, line_base_len)
+        for item_name in sorted(self.items.keys()):
+            item = self.items[item_name]
+            padding = line_base_len - len(item.name)
+            padding_str = "." * padding
+            out += f"{item.get_list_item_str()} ...{padding_str} {item.get_price_str(max_order)}\n"
+        return out
 
 if __name__ == '__main__':
     # usage example
