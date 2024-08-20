@@ -1,0 +1,32 @@
+[DEBUG] 2024-08-20 GMT-0700 09:53:43.311: The Username is set to (keyring app): s26600004@stu.tempeunion.org
+[DEBUG] 2024-08-20 GMT-0700 09:53:43.311: The Submission Password is set to (keyring app): ***
+[INFO] 2024-08-20 GMT-0700 09:53:43.311: Submission process STARTED.
+[INFO] 2024-08-20 GMT-0700 09:53:43.311: Asking for agreement.
+[DEBUG] 2024-08-20 GMT-0700 09:53:45.463: Agreement answer: I AGREE
+[DEBUG] 2024-08-20 GMT-0700 09:53:45.464: Task signature: sail2-project-author-debugging-43g8qo9g-v2-9b61b6c8-639f-426e-9644-a9c0178a7b7c
+[INFO] 2024-08-20 GMT-0700 09:53:45.465: Collecting information about context.
+[INFO] 2024-08-20 GMT-0700 09:53:45.544: Finding files for submission.
+[INFO] 2024-08-20 GMT-0700 09:53:45.544: Generating submission files for task 1.
+[INFO] 2024-08-20 GMT-0700 09:53:45.544: Evaluating task 1.
+[ERROR] 2024-08-20 GMT-0700 09:53:45.593: An unexpected error has occurred.
+Traceback (most recent call last):
+  File "C:\Users\S26600004\AppData\Roaming\Python\Python39\site-packages\submitter_utils\submitter.pye", line 70, in run
+    ,$tmf-UR9QO`7m3:/ZUOC`Mr"HEG@322'^F
+  File "C:\Users\S26600004\AppData\Roaming\Python\Python39\site-packages\submitter_utils\task_handler.pye", line 31, in generate_submission_archive
+    ONMZG-M0.d4^.q^W*/O-kA!&&F=,HOemS^G
+  File "C:\Users\S26600004\AppData\Roaming\Python\Python39\site-packages\submitter_utils\task_handler.pye", line 51, in __list_files_for_submission
+    )QtuUN&-8jD=?N"m9rd:_#TXTUSTI4'[SAo
+  File "C:\Users\S26600004\AppData\Roaming\Python\Python39\site-packages\submitter_utils\task_handler.pye", line 65, in __generate_task_specific_files
+    Hqt-[p'3jY=H$l-q3'VP4?99HU'p@LC(3G!
+  File "C:\Users\S26600004\AppData\Roaming\Python\Python39\site-packages\submitter_utils\tasks.pye", line 23, in task1
+    :8UKVO3>h>"h)?o@QJUXQY5&9HT8,]8pP]\
+  File "C:\Users\S26600004\AppData\Roaming\Python\Python39\site-packages\submitter_utils\test_utils.pye", line 427, in assess_shopping_list_original
+    0Ikh%3fmk!q$F]Ma0-;Q8GkPZk:jg3f>AYF
+  File "C:\Users\S26600004\AppData\Roaming\Python\Python39\site-packages\submitter_utils\test_utils.pye", line 102, in test_error_throwing
+    QjWqYW:?I#r^)*qpS?G:EOO[DiYu[+&`h0[
+  File "C:\Users\S26600004\SailPlatform\unit6-debug-refactor-test-package\items.py", line 12, in __init__
+    price = float(price)
+ValueError: could not convert string to float: 'qtwwhsnkfjqemcotigar'
+[INFO] 2024-08-20 GMT-0700 09:53:45.599: Finding files for cleanup.
+[INFO] 2024-08-20 GMT-0700 09:53:45.600: Cleanup finished.
+[INFO] 2024-08-20 GMT-0700 09:53:45.600: Submission process FINISHED.
