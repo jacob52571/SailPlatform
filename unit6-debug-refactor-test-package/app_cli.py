@@ -15,8 +15,8 @@ class AppCLI:
                 prompt = 'What amount should replace the questionmarks? $'
             cmd = input(prompt)
             self.execute_command(cmd)
-            print(f'{self.message}\n')
-            self.message = None
+            print(f'{self.app_engine.message}\n')
+            self.app_engine.message = None
             if not self.app_engine.continue_execution:
                 break
 
@@ -25,30 +25,30 @@ class AppCLI:
             self.app_engine.process_answer(cmd)
         elif cmd == 'q' or cmd == 'quit':
             self.app_engine.continue_execution = False
-            self.message = 'Have a nice day!'
+            self.app_engine.message = 'Have a nice day!'
         elif cmd == 'a' or cmd == 'ask':
             self.process_ask()
         elif cmd == 'l' or cmd == 'list':
             self.app_engine.shopping_list.refresh(item_pool = self.app_engine.items)
-            self.message = (f'Shopping list with {len(self.app_engine.shopping_list)} items has been created.')
+            self.app_engine.message = (f'Shopping list with {len(self.app_engine.shopping_list)} items has been created.')
         elif cmd.startswith('show'):
             self.process_show(cmd)
         elif cmd.startswith('add'):
-            self.process_add_item(cmd)
+            self.app_engine.process_add_item(cmd)
         elif cmd.startswith('del'):
-            self.process_del_item(cmd)
+            self.app_engine.process_del_item(cmd)
         else:
-            self.message = f'"{cmd}" is not a valid command.'
+            self.app_engine.message = f'"{cmd}" is not a valid command.'
 
     def show_items(self):
         max_name, max_order = 0, 0
-        for item in self.items.items.values():
+        for item in self.app_engine.items.items.values():
             max_name = max(max_name, len(item.name))
             max_order = max(max_order, item.get_order())
         out = 'ITEMS\n'
         line_base_len = max(max_name, max_order)
-        for item_name in sorted(self.items.items.keys()):
-            item = self.items.items[item_name]
+        for item_name in sorted(self.app_engine.items.items.keys()):
+            item = self.app_engine.items.items[item_name]
             padding = line_base_len - len(item.name)
             padding_str = "." * padding
             out += f"{item.get_list_item_str()} ...{padding_str} {item.get_price_str(max_order)}\n"
@@ -82,7 +82,7 @@ class AppCLI:
 
     def process_ask(self):
         q = random.randint(0, len(self.app_engine.shopping_list.list))
-        self.message = self.show_list(mask_index = q)
+        self.app_engine.message = self.show_list(mask_index = q)
         if q < len(self.app_engine.shopping_list.list):
             self.app_engine.correct_answer = self.app_engine.shopping_list.get_item_price(q)
         else:
@@ -91,12 +91,12 @@ class AppCLI:
     def process_show(self, cmd):
         what = cmd[ 5: ]
         if what == 'items' :
-            self.message = self.show_items()
+            self.app_engine.message = self.show_items()
         elif what == 'list' :
-            self.message = self.show_list()
+            self.app_engine.message = self.show_list()
         else:
-            self.message= f'Cannot show {what}.\n'
-            self.message += 'Usage: show list|items'
+            self.app_engine.message= f'Cannot show {what}.\n'
+            self.app_engine.message += 'Usage: show list|items'
 
 if __name__ == '__main__':
     # usage example

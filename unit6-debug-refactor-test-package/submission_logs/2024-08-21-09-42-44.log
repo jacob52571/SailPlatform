@@ -1,0 +1,18 @@
+[DEBUG] 2024-08-21 GMT-0700 09:42:44.450: The Username is set to (keyring app): s26600004@stu.tempeunion.org
+[DEBUG] 2024-08-21 GMT-0700 09:42:44.450: The Submission Password is set to (keyring app): ***
+[INFO] 2024-08-21 GMT-0700 09:42:44.450: Submission process STARTED.
+[INFO] 2024-08-21 GMT-0700 09:42:44.450: Asking for agreement.
+[DEBUG] 2024-08-21 GMT-0700 09:42:45.682: Agreement answer: I AGREE
+[DEBUG] 2024-08-21 GMT-0700 09:42:45.683: Task signature: sail2-project-author-debugging-43g8qo9g-v2-99aa2fe7-8359-48c3-ab8e-24fa64e477fc
+[INFO] 2024-08-21 GMT-0700 09:42:45.683: Collecting information about context.
+[INFO] 2024-08-21 GMT-0700 09:42:45.991: Finding files for submission.
+[INFO] 2024-08-21 GMT-0700 09:42:45.991: Generating submission files for task 2.
+[INFO] 2024-08-21 GMT-0700 09:42:45.991: Evaluating task 2.
+[INFO] 2024-08-21 GMT-0700 09:42:46.327: Submission archive generated.
+[INFO] 2024-08-21 GMT-0700 09:42:46.327: Sending the submission to Sail() Auto-grading Service.
+[DEBUG] 2024-08-21 GMT-0700 09:42:47.693: AGS Success: True
+[DEBUG] 2024-08-21 GMT-0700 09:42:47.693: AGS Status: 200
+[DEBUG] 2024-08-21 GMT-0700 09:42:47.693: AGS Message: Your submission is in processing, submission token is: s26600004@stu.tempeunion.org_project-author-debugging-43g8qo9g_99aa2fe7-8359-48c3-ab8e-24fa64e477fc_1836998869 Wait and check your code, score and feedback on your Learning Management System.
+[INFO] 2024-08-21 GMT-0700 09:42:47.696: Finding files for cleanup.
+[INFO] 2024-08-21 GMT-0700 09:42:47.698: Cleanup finished.
+[INFO] 2024-08-21 GMT-0700 09:42:47.698: Submission process FINISHED.
