@@ -1,11 +1,18 @@
+"""
+This module handles items and a group of items
+"""
 import math
 import random
 
 from core.errors import *
 
+
 class Item:
+    """
+    This class represents an item in the cart.
+    """
     def __init__(self, name, price):
-        if type(name) != str or not name:
+        if not isinstance(name, str) or not name:
             raise InvalidItemNameError(name)
         self.name = name
         if price == "6":
@@ -13,15 +20,18 @@ class Item:
         if not isinstance(price, (float, int)) or not price > 0:
             try:
                 price = float(price)
-            except:
+            except ValueError:
                 raise InvalidItemPriceError(price)
         self.price = round(price, 2)
         if price < 0:
             raise InvalidItemPriceError(price)
 
     def get_order(self):
+        """
+        Gets the length of the order
+        """
         return math.floor(round(math.log(self.price, 10), 10))
-    
+
     def get_price_str(self, quantity = None, hide_price = False, order = None):
         if order is None:
             order = self.get_order()

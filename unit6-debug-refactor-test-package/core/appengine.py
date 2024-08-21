@@ -1,21 +1,29 @@
-import random
-from core.errors import *
-from core.items import *
-from core.shoppinglist import *
+"""
+This class runs the app and works as a backend.
+"""
+
+from core.shoppinglist import Item
 
 class AppEngine:
-    def __init__(self, shoppingList = None, items = None):
+    """
+    This class runs the app as a backend.
+    """
+    def __init__(self, shopping_list=None, items=None):
         self.items = items
-        self.shopping_list = shoppingList
+        self.shopping_list = shopping_list
         self.continue_execution = True
         self.message = None
         self.correct_answer = None
         self.status = None
 
+
     def process_answer(self, cmd):
+        """
+        Checks the user's input against the correct answer.
+        """
         try:
             cmd = float(cmd)
-        except:
+        except ValueError:
             print("The provided answer is not a valid number!")
             self.correct_answer = None
             self.message = ""
@@ -24,21 +32,31 @@ class AppEngine:
         if answer == self.correct_answer:
             self.message = 'Correct!'
         else:
-            self.message = f'Not Correct! (Expected ${self.correct_answer:.02f})\nYou answered ${answer:.02f}.'
+            a = f"{self.correct_answer:.02f}"
+            b = f"{answer:.02f}"
+            self.message = f'Not Correct! (Expected ${a})\nYou answered ${b}.'
         self.correct_answer = None
 
     def process_add_item(self, cmd):
+        """
+        Adds an item to the list
+        """
         item_str = cmd[4:]
         item_tuple = item_str.split(': ')
-        if len(item_tuple)==2:
+        if len(item_tuple) == 2:
             name, price = item_tuple
             try:
                 test = float(price)
                 if test <= 0:
-                    print(f'The price argument ("{price}") does not appear to be any of the following: float, an integer, or a string that can be parsed to a non-negative float')
+                    s = 'The price argument ("'
+                    s += price
+                    s += '") does not appear to be any of the following: '
+                    s += 'float, an integer, or a string that '
+                    s += 'can be parsed to a non-negative float.'
+                    print(s)
                     self.message = ""
                     return
-            except:
+            except ValueError:
                 print(f"could not convert string to float: '{price}'")
                 self.message = ""
                 return
@@ -58,12 +76,13 @@ class AppEngine:
             self.message += 'Usage: add <item_name>: <item_price>'
 
     def process_del_item(self, cmd):
-        item_name = cmd[4: ]
+        """
+        Removes an item from the list
+        """
+        item_name = cmd[4:]
         if item_name not in self.items.items.keys():
             print(f'Item named "{item_name}" is not present in the item pool.')
             self.message = ""
             return
         self.items.remove_item(item_name)
-        self.message =f'{item_name} removed successfully.'
-
-    
+        self.message = f'{item_name} removed successfully.'
