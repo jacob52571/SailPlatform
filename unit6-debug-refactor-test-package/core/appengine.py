@@ -13,7 +13,14 @@ class AppEngine:
         self.status = None
 
     def process_answer(self, cmd):
-        answer = round(float(cmd), 2)
+        try:
+            cmd = float(cmd)
+        except:
+            print("The provided answer is not a valid number!")
+            self.correct_answer = None
+            self.message = ""
+            return
+        answer = round(cmd, 2)
         if answer == self.correct_answer:
             self.message = 'Correct!'
         else:
@@ -25,7 +32,25 @@ class AppEngine:
         item_tuple = item_str.split(': ')
         if len(item_tuple)==2:
             name, price = item_tuple
+            try:
+                test = float(price)
+                if test <= 0:
+                    print(f'The price argument ("{price}") does not appear to be any of the following: float, an integer, or a string that can be parsed to a non-negative float')
+                    self.message = ""
+                    return
+            except:
+                print(f"could not convert string to float: '{price}'")
+                self.message = ""
+                return
+            if len(name) == 0:
+                print("Item name string cannot be empty.")
+                self.message = ""
+                return
             item = Item(name, price)
+            if item.name in self.items.items.keys():
+                print("Duplicate!")
+                self.message = ""
+                return
             self.items.add_item(item)
             self.message = f'{item} added successfully.'
         else:
@@ -34,7 +59,11 @@ class AppEngine:
 
     def process_del_item(self, cmd):
         item_name = cmd[4: ]
-        self.items.remove_item( item_name )
+        if item_name not in self.items.items.keys():
+            print(f'Item named "{item_name}" is not present in the item pool.')
+            self.message = ""
+            return
+        self.items.remove_item(item_name)
         self.message =f'{item_name} removed successfully.'
 
     
