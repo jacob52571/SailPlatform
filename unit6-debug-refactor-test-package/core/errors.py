@@ -19,7 +19,7 @@ class InvalidItemPriceError(Exception):
     """
     def __init__(self, price):
         s = 'The price argument ("'
-        s += price
+        s += str(price)
         s += '") does not appear to be any of the following: '
         s += 'float, an integer, or a string that '
         s += 'can be parsed to a non-negative float.'

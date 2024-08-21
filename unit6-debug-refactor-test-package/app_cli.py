@@ -1,18 +1,28 @@
+"""
+Creates the cli for the app engine
+"""
 import random
-from core.errors import *
-from core.items import *
-from core.shoppinglist import *
+from core.items import Item
 from core.appengine import AppEngine
+#remove when done testing
+from core.items import ItemPool
+from core.shoppinglist import ShoppingList
 
 class AppCLI:
-    def __init__(self, shoppingList=None, items=None):
-        self.app_engine = AppEngine(shoppingList, items)
+    """
+    This class is the CLI front end for the app engine
+    """
+    def __init__(self, shopping_list=None, items=None):
+        self.app_engine = AppEngine(shopping_list, items)
 
     def run(self):
+        """
+        This function runs the cli.
+        """
         while True:
-            prompt = 'What would you like to do? '
-            if self.app_engine.correct_answer is not None:
-                prompt = 'What amount should replace the questionmarks? $'
+            prompt = ('What amount should replace the questionmarks? $'
+                      if self.app_engine.correct_answer is not None
+                      else 'What would you like to do? ')
             cmd = input(prompt)
             self.execute_command(cmd)
             print(f'{self.app_engine.message}\n')
@@ -20,17 +30,23 @@ class AppCLI:
             if not self.app_engine.continue_execution:
                 break
 
-    def execute_command(self,cmd):
+    def execute_command(self, cmd):
+        """
+        Runs a command given from the cli
+        """
         if self.app_engine.correct_answer is not None:
             self.app_engine.process_answer(cmd)
-        elif cmd == 'q' or cmd == 'quit':
+        elif cmd in ('q', 'quit'):
             self.app_engine.continue_execution = False
             self.app_engine.message = 'Have a nice day!'
-        elif cmd == 'a' or cmd == 'ask':
+        elif cmd in ('a', 'ask'):
             self.process_ask()
-        elif cmd == 'l' or cmd == 'list':
-            self.app_engine.shopping_list.refresh(item_pool = self.app_engine.items)
-            self.app_engine.message = (f'Shopping list with {len(self.app_engine.shopping_list)} items has been created.')
+        elif cmd in ('l', 'list'):
+            self.app_engine.shopping_list.refresh(item_pool=self.app_engine.items)
+            self.app_engine.message = (
+                f'Shopping list with {len(self.app_engine.shopping_list)} '
+                'items has been created.'
+            )
         elif cmd.startswith('show'):
             self.process_show(cmd)
         elif cmd.startswith('add'):
@@ -41,6 +57,9 @@ class AppCLI:
             self.app_engine.message = f'"{cmd}" is not a valid command.'
 
     def show_items(self):
+        """
+        Shows the items in the cart
+        """
         max_name, max_order = 0, 0
         for item in self.app_engine.items.items.values():
             max_name = max(max_name, len(item.name))
@@ -51,10 +70,14 @@ class AppCLI:
             item = self.app_engine.items.items[item_name]
             padding = line_base_len - len(item.name)
             padding_str = "." * padding
-            out += f"{item.get_list_item_str()} ...{padding_str} {item.get_price_str(max_order)}\n"
+            item_str = item.get_list_item_str()
+            out += f"{item_str} ...{padding_str} {item.get_price_str(max_order)}\n"
         return out
-    
-    def show_list(self, mask_index = None):
+
+    def show_list(self, mask_index=None):
+        """
+        Shows the shopping list
+        """
         line_base_len = len('TOTAL') - 4
         max_item = max(len(item.name) for item, _ in self.app_engine.shopping_list.list)
         line_base_len = max(max_item, line_base_len)
@@ -65,38 +88,40 @@ class AppCLI:
             max_name = max(max_name, len(item.name))
             max_order = max(max_order, item.get_order())
         out = 'SHOPPING LIST\n'
-        i = 0
         for i, (item, quantity) in enumerate(self.app_engine.shopping_list.list):
-            hide_price = mask_index == i
+            hide_price = mask_index is not None and mask_index == i
             padding = line_base_len - len(item.name)
             padding_str = "." * padding
-            out += f"{item.get_list_item_str(quantity)} ...{padding_str} {item.get_price_str(quantity, hide_price, max_order)}\n"
-        i += 1
-        hide_price = mask_index == i
-        q_len = 5
-        d_len = 2
-        padding_str = "." * (max_name - len(total.name) + q_len + d_len)
-        total_line = f"{total.get_list_item_str(leading_dash = False)} ...{padding_str} {total.get_price_str(hide_price = hide_price, order = max_order)}"
-        hline = '-'*len(total_line) + '\n'
-        return out+hline+total_line + '\n'
+            out += (f"{item.get_list_item_str(quantity)} ...{padding_str} "
+                    f"{item.get_price_str(quantity, hide_price, max_order)}\n")
+        hide_price = mask_index is not None and mask_index == len(self.app_engine.shopping_list.list)
+        padding_str = "." * (max_name - len(total.name) + 7)
+        total_line = (f"{total.get_list_item_str(leading_dash=False)} "
+                      f"...{padding_str} {total.get_price_str(hide_price=hide_price, order=max_order)}")
+        return out + '-' * len(total_line) + '\n' + total_line + '\n'
 
     def process_ask(self):
+        """
+        Picks the random item from the list as the ???
+        """
         q = random.randint(0, len(self.app_engine.shopping_list.list))
-        self.app_engine.message = self.show_list(mask_index = q)
-        if q < len(self.app_engine.shopping_list.list):
-            self.app_engine.correct_answer = self.app_engine.shopping_list.get_item_price(q)
-        else:
-           self.app_engine.correct_answer = self.app_engine.shopping_list.get_total_price()
+        self.app_engine.message = self.show_list(mask_index=q)
+        self.app_engine.correct_answer = (self.app_engine.shopping_list.get_item_price(q)
+                                           if q < len(self.app_engine.shopping_list.list)
+                                           else self.app_engine.shopping_list.get_total_price())
 
     def process_show(self, cmd):
-        what = cmd[ 5: ]
-        if what == 'items' :
+        """
+        Shows the items in the cart or list
+        """
+        what = cmd[5:]
+        if what == 'items':
             self.app_engine.message = self.show_items()
-        elif what == 'list' :
+        elif what == 'list':
             self.app_engine.message = self.show_list()
         else:
-            self.app_engine.message= f'Cannot show {what}.\n'
-            self.app_engine.message += 'Usage: show list|items'
+            self.app_engine.message = (f'Cannot show {what}.\n'
+                                        'Usage: show list|items')
 
 if __name__ == '__main__':
     # usage example
