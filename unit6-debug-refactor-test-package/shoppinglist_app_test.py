@@ -6,6 +6,7 @@ from core.items import Item
 from core.errors import InvalidItemNameError, InvalidItemPriceError, InvalidItemPoolError, DuplicateItemError, NonExistingItemError, InvalidShoppingListSizeError
 from core.items import ItemPool
 from core.shoppinglist import ShoppingList
+from core.appengine import AppEngine
 
 
 def test_valid_item_init():
@@ -134,3 +135,41 @@ def test_shopping_list():
     
     with pytest.raises(ValueError):
         shopping_list_fail_3 = ShoppingList(quantities=["test"], item_pool=item_pool)
+
+def test_app_engine():
+    item2 = Item('Macbook', 1999.99)
+    item3 = Item('Milk', 4.25)
+    item4 = Item('Hotel Room', 255.00)
+    item5 = Item('Beef Steak', 25.18)
+    ip = ItemPool()
+    ip.add_item(item2)
+    ip.add_item(item3)
+    ip.add_item(item4)
+    ip.add_item(item5)
+    app_engine = AppEngine()
+    app_engine_2 = AppEngine(items=ip)
+    app_engine.process_answer("fda")
+    app_engine.correct_answer = 5.0
+    app_engine.process_answer("5.0")
+    assert app_engine.message == "Correct!"
+    app_engine.correct_answer = 5.0
+    app_engine.process_answer("4.0")
+    assert app_engine.message == "Not Correct! (Expected $5.00)\nYou answered $4.00."
+
+    app_engine.process_add_item("0123test")
+    assert app_engine.message == "Cannot add \"test\".\nUsage: add <item_name>: <item_price>"
+    app_engine.process_add_item("add Banana: test")
+    assert app_engine.message == ""
+    app_engine.process_add_item("add Banana: -1.0")
+    assert app_engine.message == ""
+    app_engine.process_add_item("add : 4.0")
+    assert app_engine.message == ""
+    app_engine_2.process_add_item("add Banana: 0.99")
+    app_engine_2.process_add_item("add Banana: 4.00")
+    assert app_engine.message == ""
+    app_engine_2.process_add_item("add test: 123")
+    app_engine_2.process_del_item("del test")
+    assert app_engine_2.message == "test removed successfully."
+    app_engine_2.process_del_item("del test1")
+    assert app_engine_2.message == ""
+    # errors

@@ -2,8 +2,8 @@
   "testing": {
     "tests-for-appenginepy": [
       {
-        "success": false,
-        "feedback": "The `appengine.py` file has 0% coverage."
+        "success": true,
+        "feedback": "The `appengine.py` file has 100% coverage."
       }
     ],
     "tests-for-errorspy": [
