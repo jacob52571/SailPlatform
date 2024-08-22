@@ -5,7 +5,8 @@ import math
 import random
 
 from core.errors import InvalidItemNameError, InvalidItemPriceError
-from core.errors import InvalidItemPoolError, DuplicateItemError, NonExistingItemError
+from core.errors import InvalidItemPoolError, DuplicateItemError
+from core.errors import NonExistingItemError
 
 
 class Item:
@@ -21,6 +22,8 @@ class Item:
         if not isinstance(price, (float, int)) or not price > 0:
             try:
                 price = float(price)
+            except TypeError as exc:
+                raise InvalidItemPriceError(price) from exc
             except ValueError as exc:
                 raise InvalidItemPriceError(price) from exc
         self.price = round(price, 2)
@@ -62,12 +65,12 @@ class Item:
         return f'Item({self.name}, {self.price})'
 
     def __eq__(self, other):
-        a = isinstance(other, Item)
-        if not a:
+        a_a = isinstance(other, Item)
+        if not a_a:
             return False
-        b = self.name == other.name
-        c = self.price == other.price
-        return a and b and c
+        b_b = self.name == other.name
+        c_c = self.price == other.price
+        return a_a and b_b and c_c
 
 
 class ItemPool:
@@ -112,9 +115,9 @@ class ItemPool:
         """
         Get a sample of some items in the pool
         """
-        a = list(self.items.values())
-        b = min(sample_size, len(self.items))
-        return random.sample(a, b)
+        a_a = list(self.items.values())
+        b_b = min(sample_size, len(self.items))
+        return random.sample(a_a, b_b)
 
     def __repr__(self):
         return f'ItemPool({self.items})'

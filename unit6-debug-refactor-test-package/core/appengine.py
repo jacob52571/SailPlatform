@@ -4,6 +4,7 @@ This class runs the app and works as a backend.
 
 from core.items import Item
 
+
 class AppEngine:
     """
     This class runs the app as a backend.
@@ -15,7 +16,6 @@ class AppEngine:
         self.message = None
         self.correct_answer = None
         self.status = None
-
 
     def process_answer(self, cmd):
         """
@@ -32,9 +32,10 @@ class AppEngine:
         if answer == self.correct_answer:
             self.message = 'Correct!'
         else:
-            a = f"{self.correct_answer:.02f}"
-            b = f"{answer:.02f}"
-            self.message = f'Not Correct! (Expected ${a})\nYou answered ${b}.'
+            a_a = f"{self.correct_answer:.02f}"
+            b_b = f"{answer:.02f}"
+            self.message = (f'Not Correct! (Expected ${a_a})\n'
+                            f'You answered ${b_b}.')
         self.correct_answer = None
 
     def process_add_item(self, cmd):
@@ -48,12 +49,12 @@ class AppEngine:
             try:
                 test = float(price)
                 if test <= 0:
-                    s = 'The price argument ("'
-                    s += price
-                    s += '") does not appear to be any of the following: '
-                    s += 'float, an integer, or a string that '
-                    s += 'can be parsed to a non-negative float.'
-                    print(s)
+                    s_s = 'The price argument ("'
+                    s_s += price
+                    s_s += '") does not appear to be any of the following: '
+                    s_s += 'float, an integer, or a string that '
+                    s_s += 'can be parsed to a non-negative float.'
+                    print(s_s)
                     self.message = ""
                     return
             except ValueError:

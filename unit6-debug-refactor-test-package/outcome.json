@@ -1,0 +1,28 @@
+{
+  "testing": {
+    "tests-for-appenginepy": [
+      {
+        "success": false,
+        "feedback": "The `appengine.py` file has 0% coverage."
+      }
+    ],
+    "tests-for-errorspy": [
+      {
+        "success": true,
+        "feedback": "The `errors.py` file has 100% coverage."
+      }
+    ],
+    "tests-for-itemspy": [
+      {
+        "success": true,
+        "feedback": "The `items.py` file has 100% coverage."
+      }
+    ],
+    "tests-for-shoppinglistpy": [
+      {
+        "success": true,
+        "feedback": "The `shoppinglist.py` file has 100% coverage."
+      }
+    ]
+  }
+}

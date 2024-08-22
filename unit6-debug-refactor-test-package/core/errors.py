@@ -1,6 +1,7 @@
 """
-This class includes a number of errors that can happen while the program is running.
+This class includes a number of errors that can happen.
 """
+
 
 class InvalidItemNameError(Exception):
     """
@@ -15,24 +16,24 @@ class InvalidItemNameError(Exception):
 
 class InvalidItemPriceError(Exception):
     """
-    This error can be called when the price of an item isn't or can't be converted into a price
+    This error can be called when the price of an item isn't a price
     """
     def __init__(self, price):
-        s = 'The price argument ("'
-        s += str(price)
-        s += '") does not appear to be any of the following: '
-        s += 'float, an integer, or a string that '
-        s += 'can be parsed to a non-negative float.'
-        super().__init__(s)
+        s_s = 'The price argument ("'
+        s_s += str(price)
+        s_s += '") does not appear to be any of the following: '
+        s_s += 'float, an integer, or a string that '
+        s_s += 'can be parsed to a non-negative float.'
+        super().__init__(s_s)
 
 
 class InvalidItemPoolError(Exception):
     """
-    This error can be called when a value is invalid while trying to add to an item pool.
+    This error can be called when a value can't be added.
     """
     def __init__(self):
-        s = "non-empty strings as keys and Item instances as values."
-        super().__init__('ItemsPool needs to be set as a dictionary with ' + s)
+        s_s = "with non-empty strings as keys and Item instances as values."
+        super().__init__('ItemsPool needs to be set as a dictionary ' + s_s)
 
 
 class NonExistingItemError(Exception):
@@ -40,8 +41,8 @@ class NonExistingItemError(Exception):
     This error can be called when an item does not exist in an item pool.
     """
     def __init__(self, item_name):
-        s = " is not present in the item pool."
-        super().__init__(f'Item named "{item_name}"{s}')
+        s_s = " is not present in the item pool."
+        super().__init__(f'Item named "{item_name}"{s_s}')
 
 
 class DuplicateItemError(Exception):

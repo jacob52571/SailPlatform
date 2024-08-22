@@ -4,6 +4,7 @@ This module handles the shopping cart
 import random
 from core.errors import InvalidShoppingListSizeError
 
+
 class ShoppingList:
     """
     Class that manages a list of things to buy
@@ -43,8 +44,8 @@ class ShoppingList:
         """
         sum_val_list = [item.price * qnt for item, qnt in self.list]
         sum_val = 0
-        for x in sum_val_list:
-            sum_val += x
+        for val in sum_val_list:
+            sum_val += val
         sum_val = round(sum_val, 2)
         return round(sum_val, 2)
 
