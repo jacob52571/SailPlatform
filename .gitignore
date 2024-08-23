@@ -1,3 +1,4 @@
 */submission_logs/
 *.log
 */__pycache__
+*/shoppinglistapp.egg-info/
