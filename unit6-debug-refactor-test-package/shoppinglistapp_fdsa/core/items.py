@@ -4,9 +4,9 @@ This module handles items and a group of items
 import math
 import random
 
-from core.errors import InvalidItemNameError, InvalidItemPriceError
-from core.errors import InvalidItemPoolError, DuplicateItemError
-from core.errors import NonExistingItemError
+from shoppinglistapp.core.errors import InvalidItemNameError, InvalidItemPriceError
+from shoppinglistapp.core.errors import InvalidItemPoolError, DuplicateItemError
+from shoppinglistapp.core.errors import NonExistingItemError
 
 
 class Item:

@@ -2,8 +2,8 @@
 Creates the cli for the app engine
 """
 import random
-from core.items import Item
-from core.appengine import AppEngine
+from shoppinglistapp.core.items import Item
+from shoppinglistapp.core.appengine import AppEngine
 
 
 class AppCLI:

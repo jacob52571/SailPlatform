@@ -2,7 +2,7 @@
 This class runs the app and works as a backend.
 """
 
-from core.items import Item
+from shoppinglistapp.core.items import Item
 
 
 class AppEngine:

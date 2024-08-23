@@ -2,7 +2,7 @@
 This module handles the shopping cart
 """
 import random
-from core.errors import InvalidShoppingListSizeError
+from shoppinglistapp.core.errors import InvalidShoppingListSizeError
 
 
 class ShoppingList:
