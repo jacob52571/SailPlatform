@@ -27,32 +27,34 @@ def retrieve_popular_books(csv_in, json_out):
 def retrieve_boring_books(json_in, xml_out):
     tree = ET.parse(xml_out)
     root = tree.getroot()
-    for i in range(2):
-        # Creates a child node (new_node) under the root 
-        # and sets the id and language attributes.
-        new_node = ET.SubElement(root, 'movie')                 
-        new_node.attrib['id'] = '5'
-        new_node.attrib['language'] = 'English' 
+    with open(json_in, "r") as f:
+        data = json.load(f)
+        for row in data.keys():
+            # Creates a child node (new_node) under the root 
+            # and sets the id and language attributes.
+            new_node = ET.SubElement(root, 'movie')                 
+            new_node.attrib['id'] = '5'
+            new_node.attrib['language'] = 'English' 
 
-        # Adds the new movie’s title, director, year, and rating 
-        # as child nodes and sets their values.
-        title_node = ET.SubElement(new_node, 'title')            
+            # Adds the new movie’s title, director, year, and rating 
+            # as child nodes and sets their values.
+            title_node = ET.SubElement(new_node, 'title')            
 
-        title_node.text = 'The Good, the Bad and the Ugly'
+            title_node.text = 'The Good, the Bad and the Ugly'
 
-        director_node = ET.SubElement(new_node, 'director')
-        director_node.text = 'Sergio Leone'
+            director_node = ET.SubElement(new_node, 'director')
+            director_node.text = 'Sergio Leone'
 
-        year_node = ET.SubElement(new_node, 'year')
-        year_node.text = '1966'
+            year_node = ET.SubElement(new_node, 'year')
+            year_node.text = '1966'
 
-        rating_node = ET.SubElement(new_node, 'rating')
-        rating_node.text = '8.8'
+            rating_node = ET.SubElement(new_node, 'rating')
+            rating_node.text = '8.8'
 
-        # Arranges the indentation for cleaner XML.
-        ET.indent(root, space='    ')                           
-        ET.tostring(root, encoding='utf-8')
+            # Arranges the indentation for cleaner XML.
+            ET.indent(root, space='    ')                           
+            ET.tostring(root, encoding='utf-8')
 
-        # Saves it as a file named 'output.xml'
-        tree.write('output.xml')
+            # Saves it as a file named 'output.xml'
+            tree.write('output.xml')
     pass
