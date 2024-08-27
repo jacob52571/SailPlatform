@@ -2,3 +2,5 @@
 *.log
 */__pycache__
 */shoppinglistapp.egg-info/
+.sailconfig.json
+zZz*.json
