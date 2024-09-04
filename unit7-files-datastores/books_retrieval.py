@@ -25,36 +25,94 @@ def retrieve_popular_books(csv_in, json_out):
         f.write(data)
 
 def retrieve_boring_books(json_in, xml_out):
+    xml_file = open(xml_out, "w")
+    xml_file.write("<books>\n</books>")
+    xml_file.close()
     tree = ET.parse(xml_out)
     root = tree.getroot()
     with open(json_in, "r") as f:
         data = json.load(f)
-        for row in data.keys():
-            # Creates a child node (new_node) under the root 
-            # and sets the id and language attributes.
-            new_node = ET.SubElement(root, 'movie')                 
-            new_node.attrib['id'] = '5'
-            new_node.attrib['language'] = 'English' 
+        for row in data:
+            if float(row["average_rating"]) < 3.0 and int(row["num_pages"]) > 300 and int(row["ratings_count"]) > 100:
+                # Creates a child node (new_node) under the root 
+                # and sets the id and language attributes.
+                info_node = ET.SubElement(root, 'book')                 
+                info_node.attrib['id'] = row["bookID"]
 
-            # Adds the new movie’s title, director, year, and rating 
-            # as child nodes and sets their values.
-            title_node = ET.SubElement(new_node, 'title')            
+                new_node = ET.SubElement(info_node, "info")
 
-            title_node.text = 'The Good, the Bad and the Ugly'
+                # Adds the new movie’s title, director, year, and rating 
+                # as child nodes and sets their values.
+                title_node = ET.SubElement(new_node, 'title')            
 
-            director_node = ET.SubElement(new_node, 'director')
-            director_node.text = 'Sergio Leone'
+                title_node.text = row["title"]
 
-            year_node = ET.SubElement(new_node, 'year')
-            year_node.text = '1966'
+                authors_node = ET.SubElement(new_node, 'authors')
+                authors_node.text = row["authors"]
 
-            rating_node = ET.SubElement(new_node, 'rating')
-            rating_node.text = '8.8'
+                isbn_node = ET.SubElement(new_node, 'isbn')
+                isbn_node.text = row["isbn"]
+
+                isbn13_node = ET.SubElement(new_node, 'isbn13')
+                isbn13_node.text = row["isbn13"]
+
+                language_code_node = ET.SubElement(new_node, 'language_code')
+                language_code_node.text = row["language_code"]
+
+                num_pages_node = ET.SubElement(new_node, "num_pages")
+                num_pages_node.text = row["num_pages"]
+
+                publication_date_node = ET.SubElement(new_node, "publication_date")
+                publication_date_node.text = row["publication_date"]
+
+                publisher_node = ET.SubElement(new_node, "publisher")
+                publisher_node.text = row["publisher"]
+
+                rating_node = ET.SubElement(info_node, "rating")
+
+                avg_rating_node = ET.SubElement(rating_node, "average_rating")
+                avg_rating_node.text = row["average_rating"]
+
+                ratings_count_node = ET.SubElement(rating_node, "ratings_count")
+                ratings_count_node.text = row["ratings_count"]
+
+                text_review_count_node = ET.SubElement(rating_node, "text_reviews_count")
+                text_review_count_node.text = row["text_reviews_count"]
 
             # Arranges the indentation for cleaner XML.
             ET.indent(root, space='    ')                           
             ET.tostring(root, encoding='utf-8')
 
             # Saves it as a file named 'output.xml'
-            tree.write('output.xml')
-    pass
+    tree.write(xml_out)
+
+def retrieve_wildly_popular_books(xml_in, csv_out):
+    # avg rating > 4.0, ratings count > 1,000,000
+    tree = ET.parse(xml_in)
+    books = tree.getroot()
+
+    with open(csv_out, "a", newline="") as f:
+        f.write("book_id,title,authors,average_rating,isbn,isbn13,language_code,num_pages,ratings_count,text_reviews_count,publication_date,publisher\n")
+        writer = csv.writer(f,
+                            delimiter=",",
+                            quotechar='"',
+                            quoting=csv.QUOTE_MINIMAL)
+        for book in books.findall('book'):
+            avg_rating = float(book.find("average_rating").text)
+            rating_count = int(book.find("ratings_count").text)
+            if avg_rating > 4.0 and rating_count > 1000000:
+                book_id = book.find("bookID").text
+                title = book.find("title").text
+                authors = book.find("authors").text
+                #average_rating above
+                isbn = book.find("isbn").text
+                isbn13 = book.find("isbn13").text
+                language_code = book.find("language_code").text
+                num_pages = book.find("num_pages").text
+                #rating_count above
+                text_reviews = book.find("text_reviews_count").text
+                publication_date = book.find("publication_date").text
+                publisher = book.find("publisher").text
+                writer.writerow(
+                    [book_id, title, authors, avg_rating, isbn, isbn13, language_code, num_pages, rating_count, text_reviews, publication_date, publisher]
+                )

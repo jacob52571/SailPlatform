@@ -4,3 +4,4 @@
 */shoppinglistapp.egg-info/
 .sailconfig.json
 zZz*.json
+/test

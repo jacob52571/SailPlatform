@@ -1,0 +1,34 @@
+book_id,title,authors,average_rating,isbn,isbn13,language_code,num_pages,ratings_count,text_reviews_count,publication_date,publishera0d093a4-5c12-4cc6-bc79-f70b77b29c79,Harry Potter and the Half-Blood Prince (Harry Potter  #6),J.K. bookling/Mary GrandPré,4.57,0439785960,9780439785969,eng,652,2095690,27591,9/16/2006,Scholastic Inc.
+ac0e1df6-587d-4f75-819c-ac72282079c2,Harry Potter and the Order of the Phoenix (Harry Potter  #5),J.K. bookling/Mary GrandPré,4.49,0439358078,9780439358071,eng,870,2153167,29221,9/1/2004,Scholastic Inc.
+686f4207-24b7-4a88-a782-0326df69561c,Harry Potter and the Prisoner of Azkaban (Harry Potter  #3),J.K. bookling/Mary GrandPré,4.56,043965548X,9780439655484,eng,435,2339585,36325,5/1/2004,Scholastic Inc.
+2904782a-aa0c-4603-b8fc-b0c76354f06d,The Fellowship of the Ring (The Lord of the Rings  #1),J.R.R. Tolkien,4.36,0618346252,9780618346257,eng,398,2128944,13670,9/5/2003,Houghton Mifflin Harcourt
+ec4cc758-4fd3-4e80-9a0f-99704dae0f28,Memoirs of a Geisha,Arthur Golden,4.11,0739326228,9780739326220,eng,434,1301083,19296,11/15/2005,Random House Large Print Publishing
+4f4c7187-ec2c-4a97-a962-fa5ee18c78c1,Little Women,Louisa May Alcott,4.07,0451529308,9780451529305,eng,449,1479727,18458,4/6/2004,Signet Classics
+6c427408-d124-47c7-9095-11a6010acde3,The Giver (The Giver  #1),Lois Lowry,4.13,0385732554,9780385732550,eng,208,1585589,56604,1/24/2006,Ember
+34f02cdf-82c4-4d68-82bd-3e8c85967e83,Slaughterhouse-Five,Kurt Vonnegut Jr.,4.07,0385333846,9780385333849,eng,275,1001671,19056,1/12/1999,Dial Press
+d89a4927-e841-44d6-8b7f-fa5f62923e6a,The Hobbit  or There and Back Again,J.R.R. Tolkien,4.27,0618260307,9780618260300,eng,366,2530894,32871,8/15/2002,Houghton Mifflin
+0a1f331f-1815-4fc2-9d37-1dace58084d8,Jane Eyre,Charlotte Brontë/Michael Mason,4.12,0142437204,9780142437209,eng,532,1409369,27884,2/4/2003,Penguin
+a507ab38-a6fa-4062-9de1-80bf35228ffe,Harry Potter and the Chamber of Secrets (Harry Potter  #2),J.K. bookling/Mary GrandPré,4.42,0439064864,9780439064866,eng,341,2293963,34692,6/2/1999,Arthur A. Levine Books / Scholastic Inc.
+8912fc5c-9ee1-4307-a157-7123f56c3ed3,The Notebook (The Notebook  #1),Nicholas Sparks,4.09,0553816713,9780553816716,eng,214,1090603,15272,7/5/2004,Bantam
+6762c8f1-d8e4-4362-90f6-aa95ef037a4b,The Book Thief,Markus Zusak/Cao Xuân Việt Khương,4.37,0375831002,9780375831003,eng,552,1516367,86881,3/14/2006,Alfred A. Knopf
+39b9999b-8d0c-4640-bc26-bbf5fd28851b,Charlotte's Web,E.B. White/Garth Williams/Rosemary Wells,4.17,0064410935,9780064410939,eng,184,1300470,14739,10/1/2001,HarperCollinsPublishers
+2eb25ee4-c8ef-42bb-bea3-0fc2864f2555,The Lightning Thief (Percy Jackson and the Olympians  #1),Rick Riordan,4.25,0786838655,9780786838653,eng,375,1766725,47951,3/1/2006,Disney Hyperion Books
+aca85377-d1a8-4f02-8377-7b553a1cba31,The Secret Life of Bees,Sue Monk Kidd,4.05,0142001740,9780142001745,eng,302,1044725,26279,1/28/2003,Penguin Books
+ac70e445-c395-4006-a1e3-2afcd7986343,Water for Elephants,Sara Gruen,4.09,1565125606,9781565125605,eng,335,1260027,52759,5/1/2007,Algonquin Books
+book_id,title,authors,average_rating,isbn,isbn13,language_code,num_pages,ratings_count,text_reviews_count,publication_date,publishera0d093a4-5c12-4cc6-bc79-f70b77b29c79,Harry Potter and the Half-Blood Prince (Harry Potter  #6),J.K. bookling/Mary GrandPré,4.57,0439785960,9780439785969,eng,652,2095690,27591,9/16/2006,Scholastic Inc.
+ac0e1df6-587d-4f75-819c-ac72282079c2,Harry Potter and the Order of the Phoenix (Harry Potter  #5),J.K. bookling/Mary GrandPré,4.49,0439358078,9780439358071,eng,870,2153167,29221,9/1/2004,Scholastic Inc.
+686f4207-24b7-4a88-a782-0326df69561c,Harry Potter and the Prisoner of Azkaban (Harry Potter  #3),J.K. bookling/Mary GrandPré,4.56,043965548X,9780439655484,eng,435,2339585,36325,5/1/2004,Scholastic Inc.
+2904782a-aa0c-4603-b8fc-b0c76354f06d,The Fellowship of the Ring (The Lord of the Rings  #1),J.R.R. Tolkien,4.36,0618346252,9780618346257,eng,398,2128944,13670,9/5/2003,Houghton Mifflin Harcourt
+ec4cc758-4fd3-4e80-9a0f-99704dae0f28,Memoirs of a Geisha,Arthur Golden,4.11,0739326228,9780739326220,eng,434,1301083,19296,11/15/2005,Random House Large Print Publishing
+4f4c7187-ec2c-4a97-a962-fa5ee18c78c1,Little Women,Louisa May Alcott,4.07,0451529308,9780451529305,eng,449,1479727,18458,4/6/2004,Signet Classics
+6c427408-d124-47c7-9095-11a6010acde3,The Giver (The Giver  #1),Lois Lowry,4.13,0385732554,9780385732550,eng,208,1585589,56604,1/24/2006,Ember
+34f02cdf-82c4-4d68-82bd-3e8c85967e83,Slaughterhouse-Five,Kurt Vonnegut Jr.,4.07,0385333846,9780385333849,eng,275,1001671,19056,1/12/1999,Dial Press
+d89a4927-e841-44d6-8b7f-fa5f62923e6a,The Hobbit  or There and Back Again,J.R.R. Tolkien,4.27,0618260307,9780618260300,eng,366,2530894,32871,8/15/2002,Houghton Mifflin
+0a1f331f-1815-4fc2-9d37-1dace58084d8,Jane Eyre,Charlotte Brontë/Michael Mason,4.12,0142437204,9780142437209,eng,532,1409369,27884,2/4/2003,Penguin
+a507ab38-a6fa-4062-9de1-80bf35228ffe,Harry Potter and the Chamber of Secrets (Harry Potter  #2),J.K. bookling/Mary GrandPré,4.42,0439064864,9780439064866,eng,341,2293963,34692,6/2/1999,Arthur A. Levine Books / Scholastic Inc.
+8912fc5c-9ee1-4307-a157-7123f56c3ed3,The Notebook (The Notebook  #1),Nicholas Sparks,4.09,0553816713,9780553816716,eng,214,1090603,15272,7/5/2004,Bantam
+6762c8f1-d8e4-4362-90f6-aa95ef037a4b,The Book Thief,Markus Zusak/Cao Xuân Việt Khương,4.37,0375831002,9780375831003,eng,552,1516367,86881,3/14/2006,Alfred A. Knopf
+39b9999b-8d0c-4640-bc26-bbf5fd28851b,Charlotte's Web,E.B. White/Garth Williams/Rosemary Wells,4.17,0064410935,9780064410939,eng,184,1300470,14739,10/1/2001,HarperCollinsPublishers
+2eb25ee4-c8ef-42bb-bea3-0fc2864f2555,The Lightning Thief (Percy Jackson and the Olympians  #1),Rick Riordan,4.25,0786838655,9780786838653,eng,375,1766725,47951,3/1/2006,Disney Hyperion Books
+aca85377-d1a8-4f02-8377-7b553a1cba31,The Secret Life of Bees,Sue Monk Kidd,4.05,0142001740,9780142001745,eng,302,1044725,26279,1/28/2003,Penguin Books
+ac70e445-c395-4006-a1e3-2afcd7986343,Water for Elephants,Sara Gruen,4.09,1565125606,9781565125605,eng,335,1260027,52759,5/1/2007,Algonquin Books
