@@ -30,11 +30,43 @@ def setup_sql_table(user, password, host, new_db, new_table):
     cur.execute(del_statement)
     cur.execute(create_statement)
     cur.execute(create_table)
-    print(describe_table(conn, new_db, new_table))
     cur.close()
     conn.commit()
+"""
 
+def setup_sql_table(user, password, host, new_db, new_table):
+    connection = pymysql.connect(
+        host=host,
+        user=user,
+        password=password,
+        #database=new_db,
+        charset='latin1',
+        use_unicode=False
+    )
 
+    with connection.cursor() as cur:
+        del_statement = f'DROP DATABASE IF EXISTS {new_db};'
+        create_statement = f'CREATE DATABASE {new_db};'
+        create_table = f'''
+            CREATE TABLE {new_db}.{new_table} (
+                id VARCHAR(255) PRIMARY KEY,
+                title VARCHAR(1024),
+                authors VARCHAR(1024),
+                average_rating FLOAT(9, 2),
+                isbn VARCHAR(255),
+                isbn13 VARCHAR(255),
+                language_code VARCHAR(255),
+                num_pages INT,
+                ratings_count INT,
+                text_reviews_count INT,
+                publication_date VARCHAR(255),
+                publisher VARCHAR(255)
+            );
+        '''
+        cur.execute(del_statement)
+        cur.execute(create_statement)
+        cur.execute(create_table)
+"""
 def load_to_sql(user, password, host, db, table, csv_in):
     conn = mysql.connector.connect(
         host=host,
@@ -45,53 +77,58 @@ def load_to_sql(user, password, host, db, table, csv_in):
         csv_dict_reader = csv.DictReader(csv_file)
         for row in csv_dict_reader:
             cur = conn.cursor()
+            # Properly escape and insert data using parameterized queries
             insert_statement = f'''
                 INSERT INTO {db}.{table}
-                VALUES ({row["bookID"]}, {row["title"]}, {row["authors"]}, {row["average_rating"]}, {row["isbn"]}, {row["isbn13"]}, {row["language_code"]}, {row["num_pages"]}, {row["ratings_count"]}, {row["text_reviews_count"]}, {row["publication_date"]}, {row["publisher"]})'''
-            cur.execute(insert_statement)
-            cur.close()
+                (id, title, authors, average_rating, isbn, isbn13, language_code, num_pages, ratings_count, text_reviews_count, publication_date, publisher)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            '''
+
+            # Escape commas in the title and use parameterized query to avoid issues
+            t = row["title"].replace(",", r'\,')
+
+            # Define the values to insert (make sure string values are passed as strings)
+            values = (
+                row["bookID"],
+                t,  # Escaped title
+                row["authors"],
+                row["average_rating"],
+                row["isbn"],
+                row["isbn13"],
+                row["language_code"],
+                row["num_pages"],
+                row["ratings_count"],
+                row["text_reviews_count"],
+                row["publication_date"],
+                row["publisher"]
+            )
+
+            # Execute the query with the parameterized values
+            cur.execute(insert_statement, values)
+
+            # Commit the transaction
             conn.commit()
 
-def describe_table(connection, db_name: str, table_name: str):
-    """
-    Executes the DESCRIBE command on the specified table and prints the schema.
 
-    Parameters:
-    connection: MySQL connection object.
-    table_name (str): The name of the table to describe.
-
-    Returns:
-    List of tuples containing the table schema.
-    """
-    try:
-        cursor = connection.cursor()
-        describe_query = f"DESCRIBE {db_name}.{table_name}"
-        cursor.execute(describe_query)
-        schema = cursor.fetchall()
-
-        # Column headers for better readability
-        headers = [i[0] for i in cursor.description]
-        print(f"\nSchema of table '{table_name}':")
-        print("-" * 60)
-        print("{:<20} {:<20} {:<10} {:<10} {:<15} {:<10}".format(*headers))
-        print("-" * 60)
-
-        for column in schema:
-            # Convert bytes to string if necessary
-            #column = tuple(item.decode() if isinstance(item, bytes) else item for item in column)
-            column = tuple("NULL" if value is None else value for value in column)
-            print("{:<20} {:<20} {:<10} {:<10} {:<15} {:<10}".format(*column))
-
-        return schema
-
-    except Exception as e:
-        print(f"Error describing table: {e}")
-        return []
-
-    finally:
-        cursor.close()
-
-
-
-if __name__ == "__main__":
-    setup_sql_table('dbuser', 'dbroot', 'localhost', 'books', 'goodreads')
+def retrieve_long_books(user, password, host, db, table, csv_out):
+    conn = mysql.connector.connect(
+        host=host,
+        user=user,
+        password=password
+    )
+    cur = conn.cursor()
+    select_query = f"SELECT * FROM {db}.{table}"
+    cur.execute(select_query)
+    rows = cur.fetchall()
+    with open(csv_out, "a", newline="") as f:
+        f.write("book_id,title,authors,average_rating,isbn,isbn13,language_code,num_pages,ratings_count,text_reviews_count,publication_date,publisher\n")
+        writer = csv.writer(f,
+                            delimiter=",",
+                            quotechar='"',
+                            quoting=csv.QUOTE_MINIMAL)
+        for row in rows:
+            writer.writerow(
+                [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11], row[12]]
+            )
+    cur.close()
+    conn.close()
