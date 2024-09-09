@@ -1,6 +1,7 @@
 import csv
 import json
 import xml.etree.ElementTree as ET
+import mysql.connector
 
 def retrieve_popular_books(csv_in, json_out):
     out_dict = {}
@@ -116,3 +117,27 @@ def retrieve_wildly_popular_books(xml_in, csv_out):
                 writer.writerow(
                     [book_id, title, authors, avg_rating, isbn, isbn13, language_code, num_pages, rating_count, text_reviews, publication_date, publisher]
                 )
+
+def retrieve_long_books(user, password, host, db, table, csv_out):
+    conn = mysql.connector.connect(
+        host=host,
+        user=user,
+        password=password
+    )
+    cur = conn.cursor()
+    select_query = f"SELECT * FROM {db}.{table}"
+    cur.execute(select_query)
+    rows = cur.fetchall()
+    with open(csv_out, "a", newline="") as f:
+        f.write("book_id,title,authors,average_rating,isbn,isbn13,language_code,num_pages,ratings_count,text_reviews_count,publication_date,publisher\n")
+        writer = csv.writer(f,
+                            delimiter=",",
+                            quotechar='"',
+                            quoting=csv.QUOTE_MINIMAL)
+        for row in rows:
+            if (row[7] > 2000):
+                writer.writerow(
+                    [row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8], row[9], row[10], row[11]]
+                )
+    cur.close()
+    conn.close()
