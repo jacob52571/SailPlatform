@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "algebraic-ratio-338019",
+  "private_key_id": "eb975aa8f6866c03b441e4f3f3e51099646b1d41",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDEJDquC2c25dDM\nDm9gNMfJASKpQAFB04zlAKRatZGJtYPrZYu5D0LdRummzgXCjf5AWPS9xfC8OuAI\nqBA7U6l7IM1wpCwj1sggw1DE5IXFqGA8ajmGkkwwnDNaTWRKBFcjwMcn9nteMNs0\nBUb9W4trxW/HdEa20ezeJTk+4wJarqo26bOwvuSUIeFrLomUvPcfamMWQJRPsY49\nqGrpLT3DgR/ZJ1Ptr7h3X7332ZtF6WPHk+psXEgehaeE2NES+sKU6k2MSDGnrnSs\nCa0Io7/lrs0gSNXDmEqrUy3DUpCHxkq3mkx6N/lGbFyuLeraq8h/aPzV00sYuEs2\nb1TAEXtTAgMBAAECggEAGSF/Nz+UyO7nMs4CrTP2CSYRF9hwkMuXONw9MrYi4J8W\nOPn4zgxLh+iHFW0+RbBFzF7ZdNtAvg1ZGSLXeZJ9m54XVIBke28Qk0oTNjcFgM7T\nDcqadkiWZIAPAFn8KJOnypfvrIojQm1GGMM4Vkv9cCCK8uZODSyWidwBGrKhYZbY\nIGcJj0teK9+E0RPU/LAVhEHJnoy14NEEIIeZSG34Impu11gBT1hLdRpbR0WkqeHI\nRWYcvdm/qWM7VAWnDLMtvQymGCIael4IY/fOC6RIpIyvGPfLcq3iynwt2L63oned\nCJ4L0wFXG8x+aTgTjfPG7TFH7rjNj18uNbNpY43daQKBgQDjrnpWdFV1v6ZORoie\nCTElrHvzY8vz/mf/FyT6zYgkysGphIoaHGM9fWZl8hsS8HsaegpXPQetA6NVLcy8\nwRzlhHpW4IiWTFscUVxsUxgZj016F6oDHqd0gjrABIgE5w6v5kSeBIbv3jP1+7uo\ndxsUNnms5wxlKp4JSQ+EquyZLwKBgQDciX8/xn1y4KBCm81mHigHGIcmXYn8EUxV\n0W6ukzzvvcyQV8JPBqH44D+iqoeBXdy0tA3DO9C0AkD2UoFUmzYr1ftYmh7zqdg+\n5cC7zWgndI1rX3s7Uo3z38Zguse6ohyvRHthatVITDb+Cy3qCVgITudpirIoif2s\nZEkRFQOvHQKBgBMJu+EOyTaXV+ijrTjJu/pSeerYJW25kCicXtM57HBnI9pw4rtc\nNFAn9DACFpF22lRUcBjrWYD2FOpCciQ2YZwvf6tUCxfGOrgbdYb5S8KXYPscj3LD\nVW1AlnkH5/fA+lFrB8HOzxmvkti2u/JSQ0llZLc4eqja72wHV+zX/gCxAoGBAIzj\nmlOX7tTRBBEJj/LJGTFPTigIYfqS4n2AyoDkt21Bh8o/BneN+TQRrxWwc9kFqdYX\noSM0t2QIfI/grZbrgXQHxAcajuODgg7MoJBZ7UwnfaE24ndHikBemVF6gdaNcl3W\nFixqH8+MQSWS5sY5KfBE2DnozWBwp4rWloc/MZdRAoGBAJH3JiiCe25+nFXFlO+a\nTznOlooA+4r6rGqjah5+LY2tsOJI9Rtvq3A84XENAZQpbQOuwRNvTXSTP68fFWeS\nDaj8PmUt8aML2f/en3oisx2hwtiTDK7QqgJGIYkgkplKilaCJWqa7gefKId0FqQw\nb2X5Q6/vCR2+0k+819JlMG0T\n-----END PRIVATE KEY-----\n",
+  "client_email": "ppp-gsheet-automate@algebraic-ratio-338019.iam.gserviceaccount.com",
+  "client_id": "111882557760641252420",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ppp-gsheet-automate%40algebraic-ratio-338019.iam.gserviceaccount.com"
+}
