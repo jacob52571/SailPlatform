@@ -1,3 +1,5 @@
+import sys
+
 def combination_theorem(row_num):
     answers = []
     # row 4 -> 3c0, 3c1, 3c2, 3c3
@@ -21,7 +23,15 @@ def format_row(row):
     
 if __name__ == "__main__":
     rows = []
-    row = int(input("Select a height: "))
+    row = input("Select a height: ")
+    try:
+        row = int(row)
+    except:
+        print("Value is not a number.")
+        sys.exit(1)
+    if row < 1:
+        print("Enter value of 1 or more.")
+        sys.exit(1)
     if row >= 1:
         rows.append([1])
     if row >= 2:
