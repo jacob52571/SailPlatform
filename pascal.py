@@ -2,7 +2,6 @@ import sys
 
 def combination_theorem(row_num):
     answers = []
-    # row 4 -> 3c0, 3c1, 3c2, 3c3
     for i in range(0, row_num):
         top = factorial(row_num - 1)
         bottom = factorial(i) * factorial(row_num - 1 - i)
@@ -36,7 +35,6 @@ if __name__ == "__main__":
         rows.append([1])
     if row >= 2:
         rows.append([1, 1])
-    # this is for row 7
     for i in range(3, row + 1):
         rows.append(combination_theorem(i))
     max_length = len(format_row(rows[-1]))
