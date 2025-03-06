@@ -84,28 +84,28 @@ def main():
         key = get_key_press()
 
         #Quit case ('q')
-        if key == "q":
+        if key == 113:
             print("Game Finished!");
             quit()
 
         #Up arrow
-        elif key == "up":
+        elif key == 65:
             swipe_up(board);
 
         #Down arrow
-        elif key == "down":
+        elif key == 66:
             swipe_down(board);
 
         #Right arrow
-        elif key == "right":
+        elif key == 67:
             swipe_right(board);
 
         #Left arrow
-        elif key == "left":
+        elif key == 68:
             swipe_left(board);
 
         #Space bar
-        elif key == "space":
+        elif key == 32:
             swap(board);
 
         #Check to see if I've lost at the end of the game or not
@@ -139,7 +139,8 @@ def get_piece(x, y, board):
 
     #Checking that the (x,y) coordinates given are valid for the N x N board
     # our board is + followed by ======+ for every row, so the valid coordinates will be len(board) - 1/6
-    assert x <= math.sqrt(N) - 1 and y <= math.sqrt(N) - 1
+    if not (0 <= x < N and 0 <= y < N):
+        return None
 
     #Getting the piece on the board
     return board[y][x]
@@ -163,7 +164,8 @@ def place_piece(piece, x, y, board):
     board_size = len(board)
 
     #Checking that the (x,y) coordinates given are valid for the board
-    assert x < board_size and y < board_size and x >= 0 and y >= 0
+    if not(x < board_size and y < board_size and x >= 0 and y >= 0):
+        return False
 
     #Placing the piece on the board
     board[y][x] = piece
@@ -191,10 +193,10 @@ def place_random(board):
 
     #Assign to_place according to my generated random number
 
-    if generated < 80:
+    if generated < 60:
         to_place = "2"
 
-    elif generated < 99 and generated >= 80:
+    elif generated < 97 and generated >= 60:
         to_place = "4"
 
     else:
@@ -241,22 +243,23 @@ def have_lost(board):
     #Check every (x,y) position on the board to see if a move is possible
     for y in range(N):
         for x in range(N):
-            if get_piece(x, y, board) == "*":
-                return True
+            if not board_full(board) or move_possible(x, y, board):
+                return False
 
-    return False
+    return True
 
 #End of Step 3 #############################################################################################
 
 
 #Start of Step 4 ###########################################################################################
 
-def end_move(board):
+def end_move(board, place_new_block = True):
     """
     Prints the board after a swipe, pauses for .2 seconds, places a new random piece and prints the new state of the board
     Arg board: board - the board you're finishing a move on
     """
     
+    clear()
     #Print the board
     print_board(board)
 
@@ -264,8 +267,10 @@ def end_move(board):
     pause(0.2)
 
     #Place a random piece on the board at a random (x,y) position
-    place_random(board)
+    if place_new_block:    
+        place_random(board)
     
+    clear()
     #Print the board again
     print_board(board)
 
@@ -400,9 +405,32 @@ def swap(board):
     
     Note: have_lost does not take into account possible swaps that can "save the day". This is expected behavior.
     """
+    if not swap_possible(board):
+        return False
     
-    print("Not implemented yet!")
-    return False
+    # list of tuples in (x, y) that have a number in them
+    count = []
+    
+    for y in range(len(board)):
+        for x in range(len(board[y])):
+            if board[y][x] != "*":
+                data = (x, y)
+                count.append(data)
+    
+    random_index_one = int(random.random() * len(count))
+    random_index_two = int(random.random() * len(count))
+    temp_value = 0
+
+    while random_index_one == random_index_two:
+        random_index_two = int(random.random() * len(count))
+
+    temp_value = board[count[random_index_one][1]][count[random_index_one][0]]
+    board[count[random_index_one][1]][count[random_index_one][0]] = board[count[random_index_two][1]][count[random_index_two][0]]
+    board[count[random_index_two][1]][count[random_index_two][0]] = temp_value
+    print(temp_value)
+    end_move(board, False)
+
+    return True
 
 
 def swap_possible(board):
@@ -410,9 +438,22 @@ def swap_possible(board):
     Optional Challenge: helper function for swap
     Returns True if a swap is possible on the given board and False otherwise
     """
+
+    # list of tuples in (x, y) that have a number in them
+    count = []
     
-    print("Not implemented yet!")
-    return False
+    for y in board:
+        for x in y:
+            if x != "*":
+                count.append(x)
+    
+    if len(count) < 2:
+        return False
+    
+    if count[0] == count[1]:
+        return False
+
+    return True
 
 
 
@@ -427,11 +468,10 @@ def swap_possible(board):
 
 
 from utils import *
-import math
 
 if __name__ == "__main__":
     #Only want to see the game board at the top
-    clear();
+    clear()
     
     #Starting the game
     main()
