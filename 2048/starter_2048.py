@@ -72,6 +72,9 @@ def main():
 
     #Creating my new 4x4 board
     board = make_board(4)
+    if len(sys.argv) > 1 and sys.argv[1] == "debug":
+        place_piece("1024", 0, 0, board)
+        place_piece("1024", 1, 0, board)
 
     #Getting the game started with a single piece on the board
     place_random(board)
@@ -85,34 +88,41 @@ def main():
 
         #Quit case ('q')
         if key == 113:
-            print("Game Finished!");
+            print("Game Finished!")
             quit()
 
         #Up arrow
         elif key == 65:
-            swipe_up(board);
+            swipe_up(board)
 
         #Down arrow
         elif key == 66:
-            swipe_down(board);
+            swipe_down(board)
 
         #Right arrow
         elif key == 67:
-            swipe_right(board);
+            swipe_right(board)
 
         #Left arrow
         elif key == 68:
-            swipe_left(board);
+            swipe_left(board)
 
         #Space bar
         elif key == 32:
-            swap(board);
+            swap(board)
+
+        if have_won(board):
+            print("Congratulations! You have won the game. Would you like to play again? (y/n)")
+            if (input() == 'y'):
+                main()
+            else:
+                quit()
 
         #Check to see if I've lost at the end of the game or not
         if have_lost(board):
-            print("You lost! Would you like to play again? (y/n)");
+            print("You lost! Would you like to play again? (y/n)")
             if (input() == 'y'):
-                main();
+                main()
             else:
                 quit()
 
@@ -189,7 +199,7 @@ def place_random(board):
         return False
 
     #random.random() generates a random decimal between [0, 1) ... Multiplying by 100 generates a number between [0, 100)
-    generated = random.random() * 100;
+    generated = random.random() * 100
 
     #Assign to_place according to my generated random number
 
@@ -248,6 +258,21 @@ def have_lost(board):
 
     return True
 
+def have_won(board):
+    """
+    Helper function which checks at the end of each turn if the game has been won
+    Returns True if the board has a 2048 tile and False otherwise
+    Arg board: board - the board you wish to check for a winning state
+    """
+
+    N = len(board)
+
+    for y in range(N):
+        for x in range(N):
+            if get_piece(x, y, board) == "2048":
+                return True
+    
+    return False
 #End of Step 3 #############################################################################################
 
 
