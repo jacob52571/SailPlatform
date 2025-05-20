@@ -37,7 +37,7 @@ import sys
 
 def get_key_press():
     """Utility function that gets which key was pressed and translates it into its character ascii value - takes no arguments"""
-    return ord(getch.getch());
+    return ord(getch.getch())
 
 
 def clear():
@@ -45,10 +45,10 @@ def clear():
     try:
         try:
             #For Macs and Linux
-            os.system('clear');
+            os.system('clear')
         except:
             #For Windows            REPORTED BUG: Sometimes does not work on 64 bit Windows
-            os.system('cls');
+            os.system('cls')
     except:
         #If nothing else works, a hacky, non optimal solution
         for i in range(50): print("")
@@ -59,22 +59,22 @@ def pause(seconds):
     Utility function that pauses for the given amount of time
     Arg seconds: a float or integer - number of seconds to pause for
     """
-    time.sleep(seconds);
+    time.sleep(seconds)
 
 def made_move(board):
     for row in board:
         for piece in row:
             if piece != '*':
-                return True;
-    return False;
+                return True
+    return False
 
 def num_pieces(board):
     num_pieces = 0
     for row in board:
         for piece in row:
             if piece != '*':
-                num_pieces += 1;
-    return num_pieces;
+                num_pieces += 1
+    return num_pieces
 
 def make_board(N):
     """
@@ -85,7 +85,7 @@ def make_board(N):
         raise AssertionError("Invalid board dimension")
     if type(N) != int:
         raise AssertionError("N must be an integer")
-    return [["*" for x in range(N)] for x in range(N)];
+    return [["*" for x in range(N)] for x in range(N)]
 
 
 def print_board(board):
@@ -108,28 +108,28 @@ def print_board(board):
         '1024': 'red',
         '2048': 'blue',
         '4096': 'magenta'
-    };
-    header = "Use the arrows keys to play 2048! Press q to quit";
-    print(header);
-    N = len(board);
-    vertical_edge = "";
+    }
+    header = "Use the arrows keys to play 2048! Press q to quit"
+    print(header)
+    N = len(board)
+    vertical_edge = ""
     for i in range(N+2):
-        vertical_edge += "-\t";
-    print(vertical_edge);
+        vertical_edge += "-\t"
+    print(vertical_edge)
     for y in range(N):
-        row = "";
+        row = ""
         for x in board[y]:
 
             #Handling installation fail (no colors printed)
             if termcolor is not None:
-                row += termcolor.colored(x, colors[x]);
+                row += termcolor.colored(x, colors[x])
             else:
                 row += x
 
-            row += "\t";
-        print("|\t" + row + "|");
+            row += "\t"
+        print("|\t" + row + "|")
         if y is not N-1: print("")
-    print(vertical_edge);
+    print(vertical_edge)
 
 
     if GUI_runnable:
@@ -145,9 +145,9 @@ def board_full(board):
 
     for row in board:
         for piece in row:
-            if piece == '*':  return False;
+            if piece == '*':  return False
 
-    return True;
+    return True
 
 
 def move_possible(x, y, board):
@@ -158,18 +158,18 @@ def move_possible(x, y, board):
     Arg board: board - the board you wish to check if a move is possible on
     """
 
-    piece_at_xy = starter.get_piece(x, y, board);
+    piece_at_xy = starter.get_piece(x, y, board)
     if piece_at_xy is None:
-        return False;
+        return False
     if piece_at_xy == '*':    #An empty space means a move is always possible
-        return True;
+        return True
 
     return (
            piece_at_xy == starter.get_piece(x+1, y, board) or
            piece_at_xy == starter.get_piece(x-1, y, board) or
            piece_at_xy == starter.get_piece(x, y+1, board) or
            piece_at_xy == starter.get_piece(x, y-1, board)
-           );
+           )
 
 
 def move(x, y, direction, board):
@@ -182,52 +182,48 @@ def move(x, y, direction, board):
     Arg board: board - the board you wish to make a move on
     """
 
-    piece_at_xy = starter.get_piece(x, y, board);           #Getting necessary pieces
+    piece_at_xy = starter.get_piece(x, y, board)           # Getting necessary pieces
 
     if piece_at_xy == '*':
         raise AssertionError("Error in swipe logic")
-    valid_direction = direction in ("left", "right", "up", "down");
+    valid_direction = direction in ("left", "right", "up", "down")
     if not valid_direction:
         raise AssertionError("Invalid direction passed in")
 
     #The new x and y for the current piece (adjacent's current position) are stored alongside adjacent (fewer ifs + redundant code)
-    if   direction == "left":   adjacent = (starter.get_piece(x-1, y, board), x-1, y);
-    elif direction == "right":  adjacent = (starter.get_piece(x+1, y, board), x+1, y);
-    elif direction == "up":     adjacent = (starter.get_piece(x, y-1, board), x, y-1);
-    elif direction == "down":   adjacent = (starter.get_piece(x, y+1, board), x, y+1);
+    if   direction == "left":   adjacent = (starter.get_piece(x-1, y, board), x-1, y)
+    elif direction == "right":  adjacent = (starter.get_piece(x+1, y, board), x+1, y)
+    elif direction == "up":     adjacent = (starter.get_piece(x, y-1, board), x, y-1)
+    elif direction == "down":   adjacent = (starter.get_piece(x, y+1, board), x, y+1)
 
     if adjacent[0] is None:                                             #Edge of the board case (no action taken)
-        return False;
+        return False
 
     if piece_at_xy != adjacent[0] and adjacent[0] != '*':             #Can't combine two numbers case (no action taken)
-        return False;
+        return False
 
     if adjacent[0] == '*':                                            #Empty spot adjacent case (recursive movement in direction)
-        starter.place_piece('*', x, y, board);
-        starter.place_piece(piece_at_xy, adjacent[1], adjacent[2], board);
-        move(adjacent[1], adjacent[2], direction, board);
-        return True;
+        starter.place_piece('*', x, y, board)
+        starter.place_piece(piece_at_xy, adjacent[1], adjacent[2], board)
+        move(adjacent[1], adjacent[2], direction, board)
+        return True
 
     if piece_at_xy == adjacent[0]:                                    #Adjacent same numbers case (combine them)
-        starter.place_piece('*', x, y, board);
-        starter.place_piece(str(int(adjacent[0]) * 2), adjacent[1], adjacent[2], board);
-        move(adjacent[1], adjacent[2], direction, board);
-        return True;
+        starter.place_piece('*', x, y, board)
+        starter.place_piece(str(int(adjacent[0]) * 2), adjacent[1], adjacent[2], board)
+        move(adjacent[1], adjacent[2], direction, board)
+        return True
     #Logical debug case
     if not False:
         raise AssertionError("No way you should be in here. Error in move logic")
 
-    return False;
+    return False
 
 
 #End of utils
 ############################################################################################################
 ################################## DO NOT CHANGE ANYTHING BELOW THIS LINE ##################################
 ############################################################################################################
-
-
-
-
 
 
 #You can minimize this class -- it handles the GUI and understanding it, examining it, or using it is not required to complete the project
@@ -245,45 +241,45 @@ class gui_2048(Frame):
         self.background_color = {'2':'#EBE1D7','4':'#ECE0CA','8':'#F4B176','16':'#F7975C','32':'#FA7961','64':'#F2613C','128':'#EBE899','256':'#F0D069','512':'#EBE544','1024':'#EAC80D','2048':'#F4FC08','4096':'#A4FC0D','8192':'#FC0D64'}
         self.foreground_color = {'2':'#857865','4':'#857865','8':'#FDF5E9','16':'#FDF5E9','32':'#FDF5E9','64':'#FDF5E9','128':'#FDF5E9','256':'#FDF5E9','512':'#FDF5E9','1024':'#FDF5E9','2048':'#FDF5E9','4096':'#FDF5E9','8192':'#FDF5E9'}
 
-        #support window resizing
+        # support window resizing
         self.grid(sticky = N+S+E+W)
 
         #Adding weights to each column in the row so they are resized correctly
-        #6/9/2016 top = self.winfo_toplevel()
-        #6/9/2016 top.rowconfigure(0,weight = 1)
-        #6/9/2016 top.columnconfigure(0,weight = 1)
-        #6/9/2016 self.rowconfigure(0,weight = 1)
-        #6/9/2016 self.columnconfigure(0,weight = 1)
+        # 6/9/2016 top = self.winfo_toplevel()
+        # 6/9/2016 top.rowconfigure(0,weight = 1)
+        # 6/9/2016 top.columnconfigure(0,weight = 1)
+        # 6/9/2016 self.rowconfigure(0,weight = 1)
+        # 6/9/2016 self.columnconfigure(0,weight = 1)
 
-        #Adding the size of the board to create. This may be changed anytime to get a different sized board
+        # Adding the size of the board to create. This may be changed anytime to get a different sized board
         self.board_size = 4
 
-        #matrix_numbers is a list of frames (N x N frames) where N is board_size
+        # matrix_numbers is a list of frames (N x N frames) where N is board_size
         self.matrix_numbers = list()
 
-        #initializing the GUI without any numbers (Starting point)
+        # initializing the GUI without any numbers (Starting point)
         self.create_grid(self.board_size)
 
 
     def create_grid(self,board_size):
 
-        #creating one frame for the whole window
+        # creating one frame for the whole window
         f = Frame(self,width = 500,height = 500, bg = '#BBADA0',borderwidth = 5)
 
         #support window resizing each frame
         f.grid(sticky = N+S+E+W)
 
-        #Adding weights to support resizing each frame
-        #6/9/2016 for m in range(int(board_size)):
-        #6/9/2016     f.rowconfigure(m,weight = 1)
-        #6/9/2016     f.columnconfigure(m,weight = 1)
+        # Adding weights to support resizing each frame
+        # 6/9/2016 for m in range(int(board_size)):
+        # 6/9/2016     f.rowconfigure(m,weight = 1)
+        # 6/9/2016     f.columnconfigure(m,weight = 1)
 
-        #Adding frames inside the main frame f for each grid point along with its background and font color
+        # Adding frames inside the main frame f for each grid point along with its background and font color
         for i in range(int(board_size)):
             label_row = []
             for j in range(int(board_size)):
-                frames = Frame(f, bg = '#EEE4DA',height = 150, width = 150,relief = SUNKEN)
-                frames.grid(row=i, column=j,padx = 5, pady = 5,sticky = N+S+E+W)
+                frames = Frame(f, bg = '#EEE4DA',height = 150,width = 150,relief = SUNKEN)
+                frames.grid(row=i, column=j,padx = 5, pady = 5, sticky = N+S+E+W)
                 each_label = Label(f, text = "",background = "#EEE4DA",font = ("Arial",55),justify = CENTER)
                 each_label.grid(row=i, column=j,padx = 5, pady = 5, sticky = N+S+E+W)
                 label_row.append(each_label)
