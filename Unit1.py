@@ -124,13 +124,19 @@ def test_fib():
     This is a suite of tests for the fib function.
     :return:
     """
-    assert fib(1) == 1
+    if fib(1) != 1:
+        raise AssertionError
     # TODO 1: PLACE YOUR CODE HERE
-    assert fib(2) == 1
-    assert fib(3) == 2
-    assert fib(4) == 3
-    assert fib(5) == 5
-    assert fib(6) == 8
+    if fib(2) != 1:
+        raise AssertionError
+    if fib(3) != 2:
+        raise AssertionError
+    if fib(4) != 3:
+        raise AssertionError
+    if fib(5) != 5:
+        raise AssertionError
+    if fib(6) != 8:
+        raise AssertionError
 
 ########################################################################################################################
 
@@ -158,13 +164,19 @@ def test_is_prime():
     This is a suite of tests for the is_prime function.
     :return:
     """
-    assert is_prime(3) == True
+    if is_prime(3) != True:
+        raise AssertionError
     # TODO 2: PLACE YOUR CODE HERE
-    assert is_prime(4) == False
-    assert is_prime(5) == True
-    assert is_prime(6) == False
-    assert is_prime(7) == True
-    assert is_prime(8) == False
+    if is_prime(4) != False:
+        raise AssertionError
+    if is_prime(5) != True:
+        raise AssertionError
+    if is_prime(6) != False:
+        raise AssertionError
+    if is_prime(7) != True:
+        raise AssertionError
+    if is_prime(8) != False:
+        raise AssertionError
 
 ########################################################################################################################
 
@@ -237,12 +249,18 @@ def test_merge_sort_in_place():
     merge_sort_in_place(lst5)
     merge_sort_in_place(lst6)
     
-    assert lst1 == [1, 2, 2, 5, 6]
+    if lst1 != [1, 2, 2, 5, 6]:
+        raise AssertionError
     # Below, please, write tests based on `lst2` - `lst6`. A sample test for
     # `lst1 is provided above.`
     # TODO 3: PLACE YOUR CODE HERE
-    assert lst2 == [6.5, 7, 8, 9]
-    assert lst3 == [-3, -3, 5, 7]
-    assert lst4 == [1]
-    assert lst5 == []
-    assert lst6 == ['a', 'hello', 'the']
+    if lst2 != [6.5, 7, 8, 9]:
+        raise AssertionError
+    if lst3 != [-3, -3, 5, 7]:
+        raise AssertionError
+    if lst4 != [1]:
+        raise AssertionError
+    if lst5 != []:
+        raise AssertionError
+    if lst6 != ['a', 'hello', 'the']:
+        raise AssertionError

@@ -59,6 +59,7 @@ Abstraction Reference Guide:
         move            - responsible for moving a piece, at the given (x,y) coordinates in the given direction on the given board
 
 """
+import sys
 
 #End of first section
 ############################################################################################################
@@ -89,7 +90,7 @@ def main():
         #Quit case ('q')
         if key == 113:
             print("Game Finished!")
-            quit()
+            sys.exit()
 
         #Up arrow
         elif key == 65:
@@ -116,7 +117,7 @@ def main():
             if (input() == 'y'):
                 main()
             else:
-                quit()
+                sys.exit()
 
         #Check to see if I've lost at the end of the game or not
         if have_lost(board):
@@ -124,7 +125,7 @@ def main():
             if (input() == 'y'):
                 main()
             else:
-                quit()
+                sys.exit()
 
 #End of Step 0 #############################################################################################
 
@@ -142,7 +143,8 @@ def get_piece(x, y, board):
     """
     
     #Ensure that x and y are both integers (use assert)
-    assert type(x) == int and type(y) == int
+    if not (type(x) == int and type(y) == int):
+        raise AssertionError
 
     #What does this do?
     N = len(board)
@@ -168,7 +170,8 @@ def place_piece(piece, x, y, board):
     """
     
     #Ensure that x and y are both integers (use assert)
-    assert type(x) == int and type(y) == int
+    if not (type(x) == int and type(y) == int):
+        raise AssertionError
 
     #What are the dimensions of the board?
     board_size = len(board)
@@ -436,9 +439,9 @@ def swap(board):
     # list of tuples in (x, y) that have a number in them
     count = []
     
-    for y in range(len(board)):
-        for x in range(len(board[y])):
-            if board[y][x] != "*":
+    for y, _ in enumerate(board):
+        for x, item in enumerate(board[y]):
+            if item != "*":
                 data = (x, y)
                 count.append(data)
     

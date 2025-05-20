@@ -315,8 +315,8 @@ if __name__ == '__main__':
     generate_dir_report('data/dir-top', 'dir-report.txt')
     f = open("dir-report.txt")
     out = f.readlines()
-    for i in range(len(out)):
-        print(out[i] + "\n")
+    for i, item in enumerate(out):
+        print(item + "\n")
 
 ########################################################################################################################
 
@@ -352,8 +352,8 @@ if __name__ == '__main__':
     generate_dir_report('data/dir-top', 'dir-report.txt')
     f = open("dir-report.txt")
     out = f.readlines()
-    for i in range(len(out)):
-        print(out[i] + "\n")
+    for i, item in enumerate(out):
+        print(item + "\n")
 
 ########################################################################################################################
 
@@ -393,8 +393,8 @@ if __name__ == '__main__':
     generate_dir_report('data/dir-top', 'dir-report.txt')
     f = open("dir-report.txt")
     out = f.readlines()
-    for i in range(len(out)):
-        print(out[i] + "\n")
+    for i, item in enumerate(out):
+        print(item + "\n")
 
 ########################################################################################################################
 
@@ -434,5 +434,5 @@ if __name__ == '__main__':
     generate_dir_report('data/dir-top', 'dir-report.txt', show_files=True, num_files=True, file_size=True, hl="log")
     f = open("dir-report.txt")
     out = f.readlines()
-    for i in range(len(out)):
-        print(out[i] + "\n")
+    for i, item in enumerate(out):
+        print(item + "\n")

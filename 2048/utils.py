@@ -81,8 +81,10 @@ def make_board(N):
     Utility function that returns a new N x N empty board (empty spaces represented by '*')
     Arg N: integer - board dimensions - must be greater than or equal to 1
     """
-    assert N >= 1, "Invalid board dimension";
-    assert type(N) == int, "N must be an integer";
+    if N < 1:
+        raise AssertionError("Invalid board dimension")
+    if type(N) != int:
+        raise AssertionError("N must be an integer")
     return [["*" for x in range(N)] for x in range(N)];
 
 
@@ -182,12 +184,14 @@ def move(x, y, direction, board):
     
     piece_at_xy = starter.get_piece(x, y, board);           #Getting necessary pieces
     
-    assert piece_at_xy != '*', "Error in swipe logic";      #Logical debug case
+    if piece_at_xy == '*':
+        raise AssertionError("Error in swipe logic")
     valid_direction = (direction == "left"  or
                        direction == "right" or
                        direction == "up"    or
                        direction == "down");
-    assert valid_direction, "Invalid direction passed in";  #Logical debug case
+    if not valid_direction:
+        raise AssertionError("Invalid direction passed in")
     
     #The new x and y for the current piece (adjacent's current position) are stored alongside adjacent (fewer ifs + redundant code)
     if   direction == "left":   adjacent = (starter.get_piece(x-1, y, board), x-1, y);
@@ -212,8 +216,11 @@ def move(x, y, direction, board):
         starter.place_piece(str(int(adjacent[0]) * 2), adjacent[1], adjacent[2], board);
         move(adjacent[1], adjacent[2], direction, board);
         return True;
-    #Logical debug case
-    assert False, "No way you should be in here. Error in move logic";
+
+    else:
+        #Logical debug case
+        if not False:
+            raise AssertionError("No way you should be in here. Error in move logic")
 
     return False;
 
@@ -290,13 +297,13 @@ class gui_2048(Frame):
     #update function that updates the number matrix after every loop in the main function
     def update_grid(self,board):
         assert len(board) == self.board_size
-        for x in range(len(board)):
+        for x, item in enumerate(board):
             for y in range(len(board)):
-                if board[x][y] == '*':
+                if item[y] == '*':
                     self.matrix_numbers[x][y].configure(text = '',bg = '#EEE4DA')
                 else:
-                    self.matrix_numbers[x][y].configure(text = str(board[x][y]),bg = self.background_color[board[x][y]
-                    ],fg = self.foreground_color[board[x][y]])
+                    self.matrix_numbers[x][y].configure(text = str(item[y]),bg = self.background_color[item[y]
+                    ],fg = self.foreground_color[item[y]])
 
 #You can minimize these classes -- they handle getting user input for a key and understanding it, examining it, or using it is not required to complete this project
 class _Getch:
