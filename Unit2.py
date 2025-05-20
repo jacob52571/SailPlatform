@@ -94,9 +94,6 @@ def simulate_infection(population, initial_infected, r_number):
         infected = math.ceil(infected)
         day += 1
 
-########################################################################################################################
-import math
-
 def compound_interest(init_principal, acc_rate, acc_cmp_freq, years):
     if acc_cmp_freq == 0:
         return init_principal * math.e ** (acc_rate * years)
@@ -110,10 +107,6 @@ def simulate_account_balance(init_principal, acc_rate, acc_cmp_freq, setup_fee, 
         new_balance = compound_interest(init_principal, acc_rate, acc_cmp_freq, i + 1)
         if i % 2 == 1:
             print(str(i + 1) + " " + str(new_balance))
-
-########################################################################################################################
-
-import math
 
 def pretty_print_dollars(number):
     number = float(f"{number:.2f}")
@@ -143,12 +136,6 @@ def simulate_account_balance(init_principal, acc_rate, acc_cmp_freq, setup_fee, 
         new_balance = compound_interest(init_principal, acc_rate, acc_cmp_freq, i + 1)
         if i % 2 == 1:
             print(str(i + 1) + " " + pretty_print_dollars(new_balance))
-
-########################################################################################################################
-
-# TODO 8: Place your code for `simulate_infection_pp` here
-# TODO 5: Place your code for `simulate_infection` here
-import math
 
 def pretty_print_int(number):
     ans = f"{number:,}"
@@ -220,8 +207,6 @@ def make_field(content, length):
 def make_line(length):
     return "+" + ("-" * length) + "+"
 
-import math
-
 def compound_interest(init_principal, acc_rate, acc_cmp_freq, years):
     if acc_cmp_freq == 0:
         return init_principal * math.e ** (acc_rate * years)
@@ -284,11 +269,6 @@ if __name__ == '__main__':
         for line in out:
             print(line.strip())
 
-
-########################################################################################################################
-
-import os
-
 def get_path_depth(path):
     path = os.path.normpath(path)
     return len(path.split(os.sep))
@@ -317,10 +297,6 @@ if __name__ == '__main__':
     out = f.readlines()
     for i, item in enumerate(out):
         print(item + "\n")
-
-########################################################################################################################
-
-import os
 
 def get_path_depth(path):
     path = os.path.normpath(path)
@@ -354,10 +330,6 @@ if __name__ == '__main__':
     out = f.readlines()
     for i, item in enumerate(out):
         print(item + "\n")
-
-########################################################################################################################
-
-import os
 
 def get_path_depth(path):
     path = os.path.normpath(path)
@@ -395,10 +367,6 @@ if __name__ == '__main__':
     out = f.readlines()
     for i, item in enumerate(out):
         print(item + "\n")
-
-########################################################################################################################
-
-import os
 
 def get_path_depth(path):
     path = os.path.normpath(path)

@@ -318,10 +318,10 @@ class _Getch:
 
 class _GetchUnix:
     def __init__(self):
-        import tty, sys
+        import tty
 
     def __call__(self):
-        import sys, tty, termios
+        import tty, termios
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
         try:
