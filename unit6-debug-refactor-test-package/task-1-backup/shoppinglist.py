@@ -27,7 +27,7 @@ class ShoppingList:
         if len(quantities) > size:
             quantities = quantities[:size]
         items_list = item_pool.sample_items(size)
-        self.list = [(item, q) for item, q in zip(items_list, quantities)]
+        self.list = list(zip(items_list, quantities))
 
     def get_total_price(self):
         return round(sum([item.price * qnt for item, qnt in self.list]), 2)
