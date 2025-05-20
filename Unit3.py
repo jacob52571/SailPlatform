@@ -2,11 +2,11 @@
 def create_container(container_type):
     if container_type == 'list':
         return []
-    elif container_type == 'dict':
+    if container_type == 'dict':
         return {}
-    elif container_type == 'set':
+    if container_type == 'set':
         return set()
-    elif container_type == 'tuple':
+    if container_type == 'tuple':
         return ()
 
 ########################################################################################################################
@@ -15,11 +15,11 @@ def create_container(container_type):
 def access_item(item, container):
     if isinstance(container, list):
         return container[item]
-    elif isinstance(container, dict):
+    if isinstance(container, dict):
         return container.get(item)
-    elif isinstance(container, set):
+    if isinstance(container, set):
         return item in container
-    elif isinstance(container, tuple):
+    if isinstance(container, tuple):
         return container[item]
 
 print(access_item(7, [29, 76, 93, 20, 37, 96, 16, 86, 61, 69]))
@@ -67,12 +67,11 @@ def remove_item(item, container, multi = True):
         if not multi:
             container.remove(item)
             return tuple(container)
-        else:
-            new_container = []
-            for i in range(len(container)):
-                if container[i] != item:
-                    new_container.append(container[i])
-            return tuple(new_container)
+        new_container = []
+        for i in range(len(container)):
+            if container[i] != item:
+                new_container.append(container[i])
+        return tuple(new_container)
     return container
 
 ########################################################################################################################
@@ -89,15 +88,14 @@ def update_item(orig_item, new_item, container, multi = True):
             else:
                 new_container.append(container[i])
         return new_container
-    elif isinstance(container, dict):
+    if isinstance(container, dict):
         if isinstance(new_item, tuple) and len(new_item) == 2:
             # remove orig_item and add the tuple
             container.pop(orig_item)
             container[new_item[0]] = new_item[1]
             return container
-        else:
-            container.update({orig_item: new_item})
-            return container
+        container.update({orig_item: new_item})
+        return container
     elif isinstance(container, set):
         container.remove(orig_item)
         container.add(new_item)
@@ -126,34 +124,34 @@ def convert_container(container, container_type):
                 else:
                     new_container[container[i]] = None
             return new_container
-        elif container_type == 'set':
+        if container_type == 'set':
             new_container = set()
             for i in range(len(container)):
                 new_container.add(container[i])
             return new_container
-        elif container_type == 'tuple':
+        if container_type == 'tuple':
             new_container = ()
             for i in container:
                 new_container = new_container + (i,)
             return new_container
-        elif container_type == 'list':
+        if container_type == 'list':
             return container
     if isinstance(container, dict):
         if container_type == 'dict':
             return container
-        elif container_type == 'set':
+        if container_type == 'set':
             new_container = set()
             for i in container.keys():
                 thing_to_add = (i, container.get(i))
                 new_container.add(thing_to_add)
             return new_container   
-        elif container_type == 'tuple':
+        if container_type == 'tuple':
             new_container = ()
             for i in container.keys():
                 thing_to_add = (i, container.get(i))
                 new_container = new_container + (thing_to_add,)
             return new_container
-        elif container_type == 'list':
+        if container_type == 'list':
             new_container = []
             for i in container.keys():
                 thing_to_add = (i, container.get(i))
@@ -168,14 +166,14 @@ def convert_container(container, container_type):
                 else:
                     new_container[x] = None
             return new_container
-        elif container_type == 'set':
+        if container_type == 'set':
             return container
-        elif container_type == 'tuple':
+        if container_type == 'tuple':
             new_container = ()
             for i in container:
                 new_container = new_container + (i,)
             return new_container
-        elif container_type == 'list':
+        if container_type == 'list':
             new_container = []
             for i in container:
                 new_container.append(i)
@@ -190,14 +188,14 @@ def convert_container(container, container_type):
                 else:
                     new_container[container[i]] = None
             return new_container
-        elif container_type == 'set':
+        if container_type == 'set':
             new_container = set()
             for i in range(len(container)):
                 new_container.add(container[i])
             return new_container
-        elif container_type == 'tuple':
+        if container_type == 'tuple':
             return container
-        elif container_type == 'list':
+        if container_type == 'list':
             new_container = []
             for i in container:
                 new_container.append(i)
