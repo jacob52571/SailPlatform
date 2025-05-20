@@ -216,11 +216,9 @@ def move(x, y, direction, board):
         starter.place_piece(str(int(adjacent[0]) * 2), adjacent[1], adjacent[2], board);
         move(adjacent[1], adjacent[2], direction, board);
         return True;
-
-    else:
-        #Logical debug case
-        if not False:
-            raise AssertionError("No way you should be in here. Error in move logic")
+    #Logical debug case
+    if not False:
+        raise AssertionError("No way you should be in here. Error in move logic")
 
     return False;
 
