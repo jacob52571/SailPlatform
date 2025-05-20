@@ -164,18 +164,18 @@ def test_is_prime():
     This is a suite of tests for the is_prime function.
     :return:
     """
-    if is_prime(3) is not True:
+    if is_prime(3) != True:
         raise AssertionError
     # TODO 2: PLACE YOUR CODE HERE
-    if is_prime(4) is not False:
+    if is_prime(4) != False:
         raise AssertionError
-    if is_prime(5) is not True:
+    if is_prime(5) != True:
         raise AssertionError
-    if is_prime(6) is not False:
+    if is_prime(6) != False:
         raise AssertionError
-    if is_prime(7) is not True:
+    if is_prime(7) != True:
         raise AssertionError
-    if is_prime(8) is not False:
+    if is_prime(8) != False:
         raise AssertionError
 
 ########################################################################################################################

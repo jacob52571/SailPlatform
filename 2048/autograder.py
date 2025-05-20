@@ -66,9 +66,9 @@ def tests_2048():
 
                 #Checks against data abstraction violations
                 temp_board = utils.make_board(10);
-                if starter.place_piece('7', 7, 7, temp_board) is False:
+                if starter.place_piece('7', 7, 7, temp_board) == False:
                     raise AssertionError("Abstraction violation. Hard-coded bounds in place_piece. Use the board's dimensions")
-                if starter.get_piece(7, 7, temp_board) is None:
+                if starter.get_piece(7, 7, temp_board) == None:
                     raise AssertionError("Abstraction violation. Hard-coded bounds in get_piece. Use the board's dimensions")
 
 

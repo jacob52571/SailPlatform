@@ -159,7 +159,7 @@ def move_possible(x, y, board):
     """
 
     piece_at_xy = starter.get_piece(x, y, board);
-    if piece_at_xy is None:
+    if piece_at_xy == None:
         return False;
     if piece_at_xy == '*':    #An empty space means a move is always possible
         return True;
@@ -199,7 +199,7 @@ def move(x, y, direction, board):
     elif direction == "up":     adjacent = (starter.get_piece(x, y-1, board), x, y-1);
     elif direction == "down":   adjacent = (starter.get_piece(x, y+1, board), x, y+1);
 
-    if adjacent[0] is None:                                             #Edge of the board case (no action taken)
+    if adjacent[0] == None:                                             #Edge of the board case (no action taken)
         return False;
 
     if piece_at_xy != adjacent[0] and adjacent[0] != '*':             #Can't combine two numbers case (no action taken)
