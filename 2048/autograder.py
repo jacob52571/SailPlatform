@@ -1,3 +1,4 @@
+import sys
 starter = __import__("starter_2048", fromlist=['x'])
 utils = __import__("utils", fromlist=['x'])
 import time
@@ -30,7 +31,7 @@ def tests_2048():
         ###########################################
         #Quit case ('0')
         if key == 48 or key==113:
-            quit();
+            sys.exit();
 
 
         ###########################################
@@ -72,7 +73,7 @@ def tests_2048():
 
             except IndexError:
                 print("Test failed! Check bounds logic in place_piece and get_piece again. Quitting now...");
-                quit();
+                sys.exit();
 
 
         ##############################

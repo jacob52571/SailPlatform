@@ -59,6 +59,7 @@ Abstraction Reference Guide:
         move            - responsible for moving a piece, at the given (x,y) coordinates in the given direction on the given board
 
 """
+import sys
 
 #End of first section
 ############################################################################################################
@@ -89,7 +90,7 @@ def main():
         #Quit case ('q')
         if key == 113:
             print("Game Finished!")
-            quit()
+            sys.exit()
 
         #Up arrow
         elif key == 65:
@@ -116,7 +117,7 @@ def main():
             if (input() == 'y'):
                 main()
             else:
-                quit()
+                sys.exit()
 
         #Check to see if I've lost at the end of the game or not
         if have_lost(board):
@@ -124,7 +125,7 @@ def main():
             if (input() == 'y'):
                 main()
             else:
-                quit()
+                sys.exit()
 
 #End of Step 0 #############################################################################################
 
