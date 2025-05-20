@@ -5,4 +5,4 @@ name = "python"
 
   [analyzers.meta]
   runtime_version = "3.x.x"
-  exclude_patterns = ["2048-venv/**", "2048-venv-windows/**", "final-venv/**", "unit5-classes-objects/p4-env/**", "unit6-debug-refactor-test-package/p5-env/**", "unit7-files-datastores/p6-env/**"]
+  #exclude_patterns = ["2048-venv/**", "2048-venv-windows/**", "final-venv/**", "unit5-classes-objects/p4-env/**", "unit6-debug-refactor-test-package/p5-env/**", "unit7-files-datastores/p6-env/**"]
