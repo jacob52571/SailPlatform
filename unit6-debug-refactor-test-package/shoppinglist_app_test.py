@@ -11,8 +11,10 @@ from core.appengine import AppEngine
 
 def test_valid_item_init():
     item = Item('bread', 3.25)
-    assert item.name == 'bread'
-    assert math.isclose(item.price, 3.25)
+    if item.name != 'bread':
+        raise AssertionError
+    if not math.isclose(item.price, 3.25):
+        raise AssertionError
     
 
 def test_invalid_item_init():
@@ -24,36 +26,47 @@ def test_invalid_item_init():
 
 def test_item_get_order():
     item = Item('bread', 3.25)
-    assert item.get_order() == 0
+    if item.get_order() != 0:
+        raise AssertionError
     item.price = 1000.0
-    assert item.get_order() == 3
+    if item.get_order() != 3:
+        raise AssertionError
     
     
 def test_item_get_list_item_str():
     item = Item('bread', 3.25)
-    assert item.get_list_item_str() == '- bread'
-    assert item.get_list_item_str(quantity=2) == '- bread (2x)'
-    assert item.get_list_item_str(
-        quantity=2, leading_dash=True) == '- bread (2x)'
+    if item.get_list_item_str() != '- bread':
+        raise AssertionError
+    if item.get_list_item_str(quantity=2) != '- bread (2x)':
+        raise AssertionError
+    if item.get_list_item_str(
+        quantity=2, leading_dash=True) != '- bread (2x)':
+        raise AssertionError
 
     
 def test_item_get_price_str():
     item = Item('bread', 3.25)
-    assert item.get_price_str() == '$3.25'
-    assert item.get_price_str(hide_price=True) == '$?.??'
-    assert item.get_price_str(order=3) == '$0003.25'
+    if item.get_price_str() != '$3.25':
+        raise AssertionError
+    if item.get_price_str(hide_price=True) != '$?.??':
+        raise AssertionError
+    if item.get_price_str(order=3) != '$0003.25':
+        raise AssertionError
     
     
 def test_item_repr():
     item = Item('bread', 3.25)
-    assert repr(item) == 'Item(bread, 3.25)'
+    if repr(item) != 'Item(bread, 3.25)':
+        raise AssertionError
     
 def test_item_eq():
     item1 = Item('bread', 3.25)
     item2 = Item('bread', 3.25)
     item3 = Item('butter', 4.10)
-    assert item1 == item2
-    assert item1 != item3
+    if item1 != item2:
+        raise AssertionError
+    if item1 == item3:
+        raise AssertionError
 
 def test_invalid_name():
     with pytest.raises(InvalidItemNameError):
@@ -69,7 +82,8 @@ def test_invalid_price():
 
 def test_eq():
     item1 = Item('bread', 3.25)
-    assert item1 != "4"
+    if item1 == "4":
+        raise AssertionError
 
 def test_item_pool():
     item_pool1 = ItemPool()
@@ -79,11 +93,15 @@ def test_item_pool():
     item_pool1.add_item(item1)
     item_pool1.add_item(item3)
     item_pool1.remove_item("butter")
-    assert item_pool1.get_size() == 1
-    assert item_pool1.__repr__() == "ItemPool({'bread': Item(bread, 3.25)})"
+    if item_pool1.get_size() != 1:
+        raise AssertionError
+    if item_pool1.__repr__() != "ItemPool({'bread': Item(bread, 3.25)})":
+        raise AssertionError
     item_pool2.add_item(item3)
-    assert item_pool1 != item_pool2
-    assert item_pool1.sample_items(1) == [Item("bread", 3.25)]
+    if item_pool1 == item_pool2:
+        raise AssertionError
+    if item_pool1.sample_items(1) != [Item("bread", 3.25)]:
+        raise AssertionError
     
     #errors
     with pytest.raises(InvalidItemPoolError):
@@ -123,8 +141,10 @@ def test_shopping_list():
     shopping_list_3 = ShoppingList(quantities=[5, 6, 7, 8], size=3, item_pool=item_pool)
     shopping_list_4 = ShoppingList(item_pool=item_pool)
     assert len(shopping_list_1) == 5
-    assert shopping_list_1.get_total_price() == 3.25 * 5
-    assert shopping_list_1.get_item_price(0) == 3.25
+    if shopping_list_1.get_total_price() != 3.25 * 5:
+        raise AssertionError
+    if shopping_list_1.get_item_price(0) != 3.25:
+        raise AssertionError
 
     # errors
     with pytest.raises(ValueError):
@@ -151,25 +171,34 @@ def test_app_engine():
     app_engine.process_answer("fda")
     app_engine.correct_answer = 5.0
     app_engine.process_answer("5.0")
-    assert app_engine.message == "Correct!"
+    if app_engine.message != "Correct!":
+        raise AssertionError
     app_engine.correct_answer = 5.0
     app_engine.process_answer("4.0")
-    assert app_engine.message == "Not Correct! (Expected $5.00)\nYou answered $4.00."
+    if app_engine.message != "Not Correct! (Expected $5.00)\nYou answered $4.00.":
+        raise AssertionError
 
     app_engine.process_add_item("0123test")
-    assert app_engine.message == "Cannot add \"test\".\nUsage: add <item_name>: <item_price>"
+    if app_engine.message != "Cannot add \"test\".\nUsage: add <item_name>: <item_price>":
+        raise AssertionError
     app_engine.process_add_item("add Banana: test")
-    assert app_engine.message == ""
+    if app_engine.message != "":
+        raise AssertionError
     app_engine.process_add_item("add Banana: -1.0")
-    assert app_engine.message == ""
+    if app_engine.message != "":
+        raise AssertionError
     app_engine.process_add_item("add : 4.0")
-    assert app_engine.message == ""
+    if app_engine.message != "":
+        raise AssertionError
     app_engine_2.process_add_item("add Banana: 0.99")
     app_engine_2.process_add_item("add Banana: 4.00")
-    assert app_engine.message == ""
+    if app_engine.message != "":
+        raise AssertionError
     app_engine_2.process_add_item("add test: 123")
     app_engine_2.process_del_item("del test")
-    assert app_engine_2.message == "test removed successfully."
+    if app_engine_2.message != "test removed successfully.":
+        raise AssertionError
     app_engine_2.process_del_item("del test1")
-    assert app_engine_2.message == ""
+    if app_engine_2.message != "":
+        raise AssertionError
     # errors
