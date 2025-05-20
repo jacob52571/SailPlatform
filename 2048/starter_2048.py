@@ -437,9 +437,9 @@ def swap(board):
     # list of tuples in (x, y) that have a number in them
     count = []
     
-    for y in range(len(board)):
-        for x in range(len(board[y])):
-            if board[y][x] != "*":
+    for y, _ in enumerate(board):
+        for x, item in enumerate(board[y]):
+            if item != "*":
                 data = (x, y)
                 count.append(data)
     

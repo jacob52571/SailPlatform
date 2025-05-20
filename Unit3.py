@@ -54,9 +54,9 @@ def remove_item(item, container, multi = True):
             container.remove(item)
         else:
             new_container = []
-            for i in range(len(container)):
-                if container[i] != item:
-                    new_container.append(container[i])
+            for i, item in enumerate(container):
+                if item != item:
+                    new_container.append(item)
             return new_container
     elif isinstance(container, dict):
         container.pop(item)
@@ -69,9 +69,9 @@ def remove_item(item, container, multi = True):
             return tuple(container)
         else:
             new_container = []
-            for i in range(len(container)):
-                if container[i] != item:
-                    new_container.append(container[i])
+            for i, item in enumerate(container):
+                if item != item:
+                    new_container.append(item)
             return tuple(new_container)
     return container
 
@@ -82,12 +82,12 @@ def update_item(orig_item, new_item, container, multi = True):
     if isinstance(container, list):
         new_container = []
         has_replaced = False
-        for i in range(len(container)):
-            if container[i] == orig_item and (multi or not has_replaced):
+        for i, item in enumerate(container):
+            if item == orig_item and (multi or not has_replaced):
                 new_container.append(new_item)
                 has_replaced = True
             else:
-                new_container.append(container[i])
+                new_container.append(item)
         return new_container
     elif isinstance(container, dict):
         if isinstance(new_item, tuple) and len(new_item) == 2:
@@ -106,12 +106,12 @@ def update_item(orig_item, new_item, container, multi = True):
         container = list(container)
         new_container = []
         has_replaced = False
-        for i in range(len(container)):
-            if container[i] == orig_item and (multi or not has_replaced):
+        for i, item in enumerate(container):
+            if item == orig_item and (multi or not has_replaced):
                 new_container.append(new_item)
                 has_replaced = True
             else:
-                new_container.append(container[i])
+                new_container.append(item)
         return tuple(new_container)
 
 ########################################################################################################################
@@ -120,16 +120,16 @@ def convert_container(container, container_type):
     if isinstance(container, list):
         if container_type == 'dict':
             new_container = {}
-            for i in range(len(container)):
-                if isinstance(container[i], tuple):
-                    new_container[container[i][0]] = container[i][1]
+            for i, item in enumerate(container):
+                if isinstance(item, tuple):
+                    new_container[item[0]] = item[1]
                 else:
-                    new_container[container[i]] = None
+                    new_container[item] = None
             return new_container
         elif container_type == 'set':
             new_container = set()
-            for i in range(len(container)):
-                new_container.add(container[i])
+            for i, item in enumerate(container):
+                new_container.add(item)
             return new_container
         elif container_type == 'tuple':
             new_container = ()
@@ -184,16 +184,16 @@ def convert_container(container, container_type):
     if isinstance(container, tuple):
         if container_type == 'dict':
             new_container = {}
-            for i in range(len(container)):
-                if isinstance(container[i], tuple):
-                    new_container[container[i][0]] = container[i][1]
+            for i, item in enumerate(container):
+                if isinstance(item, tuple):
+                    new_container[item[0]] = item[1]
                 else:
-                    new_container[container[i]] = None
+                    new_container[item] = None
             return new_container
         elif container_type == 'set':
             new_container = set()
-            for i in range(len(container)):
-                new_container.add(container[i])
+            for i, item in enumerate(container):
+                new_container.add(item)
             return new_container
         elif container_type == 'tuple':
             return container

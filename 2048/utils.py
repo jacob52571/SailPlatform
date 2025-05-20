@@ -292,13 +292,13 @@ class gui_2048(Frame):
     #update function that updates the number matrix after every loop in the main function
     def update_grid(self,board):
         assert len(board) == self.board_size
-        for x in range(len(board)):
+        for x, item in enumerate(board):
             for y in range(len(board)):
-                if board[x][y] == '*':
+                if item[y] == '*':
                     self.matrix_numbers[x][y].configure(text = '',bg = '#EEE4DA')
                 else:
-                    self.matrix_numbers[x][y].configure(text = str(board[x][y]),bg = self.background_color[board[x][y]
-                    ],fg = self.foreground_color[board[x][y]])
+                    self.matrix_numbers[x][y].configure(text = str(item[y]),bg = self.background_color[item[y]
+                    ],fg = self.foreground_color[item[y]])
 
 #You can minimize these classes -- they handle getting user input for a key and understanding it, examining it, or using it is not required to complete this project
 class _Getch:
