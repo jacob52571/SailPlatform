@@ -42,7 +42,7 @@ class AppEngine:
             self.process_add_item(cmd)
         elif cmd.startswith('del'):
             self.process_del_item(cmd)
-        
+
         else:
             self.message = f'"{cmd}" is not a valid command.'
 

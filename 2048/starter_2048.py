@@ -141,7 +141,7 @@ def get_piece(x, y, board):
     Arg y: integer - y coordinate
     Arg board: board - the board you wish to get the piece from
     """
-    
+
     #Ensure that x and y are both integers (use assert)
     if not (type(x) == int and type(y) == int):
         raise AssertionError
@@ -168,7 +168,7 @@ def place_piece(piece, x, y, board):
     Arg y: integer - y coordinate
     Arg board: board - the board you wish to place the piece on
     """
-    
+
     #Ensure that x and y are both integers (use assert)
     if not (type(x) == int and type(y) == int):
         raise AssertionError
@@ -274,7 +274,7 @@ def have_won(board):
         for x in range(N):
             if get_piece(x, y, board) == "2048":
                 return True
-    
+
     return False
 #End of Step 3 #############################################################################################
 
@@ -286,7 +286,7 @@ def end_move(board, place_new_block = True):
     Prints the board after a swipe, pauses for .2 seconds, places a new random piece and prints the new state of the board
     Arg board: board - the board you're finishing a move on
     """
-    
+
     clear()
     #Print the board
     print_board(board)
@@ -297,7 +297,7 @@ def end_move(board, place_new_block = True):
     #Place a random piece on the board at a random (x,y) position
     if place_new_block:    
         place_random(board)
-    
+
     clear()
     #Print the board again
     print_board(board)
@@ -313,7 +313,7 @@ def swipe_left(board):
     YOUR COMMENT HERE (WHAT DOES THIS FUNCTION DO?)
     Arg board: board - (WHAT IS A BOARD ARGUMENT?)
     """
-    
+
     #YOUR COMMENT HERE
     action_taken = False
 
@@ -430,21 +430,21 @@ def swap(board):
     Optional Challenge: an addition to our game that adds some randomness and chance!
     Randomly swaps 2 different numbers on the board and returns True if a swap is performed and False otherwise
     Purpose: allows you to evade losing for a little while longer (if the swap is useful)
-    
+
     Note: have_lost does not take into account possible swaps that can "save the day". This is expected behavior.
     """
     if not swap_possible(board):
         return False
-    
+
     # list of tuples in (x, y) that have a number in them
     count = []
-    
+
     for y, _ in enumerate(board):
         for x, item in enumerate(board[y]):
             if item != "*":
                 data = (x, y)
                 count.append(data)
-    
+
     random_index_one = int(random.random() * len(count))
     random_index_two = int(random.random() * len(count))
     temp_value = 0
@@ -469,15 +469,15 @@ def swap_possible(board):
 
     # list of tuples in (x, y) that have a number in them
     count = []
-    
+
     for y in board:
         for x in y:
             if x != "*":
                 count.append(x)
-    
+
     if len(count) < 2:
         return False
-    
+
     if count[0] == count[1]:
         return False
 
@@ -500,7 +500,7 @@ from utils import *
 if __name__ == "__main__":
     #Only want to see the game board at the top
     clear()
-    
+
     #Starting the game
     main()
 

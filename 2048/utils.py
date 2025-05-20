@@ -52,7 +52,7 @@ def clear():
     except:
         #If nothing else works, a hacky, non optimal solution
         for i in range(50): print("")
-    
+
 
 def pause(seconds):
     """
@@ -93,7 +93,7 @@ def print_board(board):
     Utility function that prints out the state of the board
     Arg board: board - the board you want to print
     """
-    
+
     colors = {
         '*': None,
         '2': 'red',
@@ -119,19 +119,19 @@ def print_board(board):
     for y in range(N):
         row = "";
         for x in board[y]:
-            
+
             #Handling installation fail (no colors printed)
             if termcolor is not None:
                 row += termcolor.colored(x, colors[x]);
             else:
                 row += x
-            
+
             row += "\t";
         print("|\t" + row + "|");
         if y is not N-1: print("")
     print(vertical_edge);
-    
-    
+
+
     if GUI_runnable:
         gui.update_grid(board)
         gui.update()
@@ -142,7 +142,7 @@ def board_full(board):
     Utility function that returns True if the given board is full and False otherwise
     Arg board: board - the board you want to check
     """
-    
+
     for row in board:
         for piece in row:
             if piece == '*':  return False;
@@ -157,7 +157,7 @@ def move_possible(x, y, board):
     Arg y: integer - y coordinate
     Arg board: board - the board you wish to check if a move is possible on
     """
-    
+
     piece_at_xy = starter.get_piece(x, y, board);
     if piece_at_xy == None:
         return False;
@@ -181,9 +181,9 @@ def move(x, y, direction, board):
     Arg direction: string - "left", "right", "up", "down"
     Arg board: board - the board you wish to make a move on
     """
-    
+
     piece_at_xy = starter.get_piece(x, y, board);           #Getting necessary pieces
-    
+
     if piece_at_xy == '*':
         raise AssertionError("Error in swipe logic")
     valid_direction = (direction == "left"  or
@@ -192,7 +192,7 @@ def move(x, y, direction, board):
                        direction == "down");
     if not valid_direction:
         raise AssertionError("Invalid direction passed in")
-    
+
     #The new x and y for the current piece (adjacent's current position) are stored alongside adjacent (fewer ifs + redundant code)
     if   direction == "left":   adjacent = (starter.get_piece(x-1, y, board), x-1, y);
     elif direction == "right":  adjacent = (starter.get_piece(x+1, y, board), x+1, y);
@@ -313,7 +313,7 @@ class _Getch:
             self.impl = _GetchWindows()
         except ImportError:
             self.impl = _GetchUnix()
-            
+
     def getch(self):    return self()
 
     def __call__(self): return self.impl()
@@ -346,7 +346,7 @@ class _GetchWindows:
 script_name = os.path.basename(sys.argv[0])
 
 if GUI_runnable == None and script_name != 'ok':
-    
+
     try:
         root = Tk()
         gui = gui_2048(root)

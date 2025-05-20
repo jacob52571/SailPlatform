@@ -248,7 +248,7 @@ def test_merge_sort_in_place():
     merge_sort_in_place(lst4)
     merge_sort_in_place(lst5)
     merge_sort_in_place(lst6)
-    
+
     if lst1 != [1, 2, 2, 5, 6]:
         raise AssertionError
     # Below, please, write tests based on `lst2` - `lst6`. A sample test for
