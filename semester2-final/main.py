@@ -99,9 +99,9 @@ while True:
         print(word_hawaiian.upper() + " is pronounced " + word_pronunciation[:-1].capitalize())
         while True:
             answer = input("Do you want to enter another word? (y/yes/n/no): ").lower()
-            if answer == "n" or answer == "no":
+            if answer in ("n", "no"):
                 sys.exit(0)
-            elif answer == "y" or answer == "yes":
+            elif answer in ("y", "yes"):
                 break
             else:
                 print("That's not an option.")

@@ -186,10 +186,7 @@ def move(x, y, direction, board):
 
     if piece_at_xy == '*':
         raise AssertionError("Error in swipe logic")
-    valid_direction = (direction == "left"  or
-                       direction == "right" or
-                       direction == "up"    or
-                       direction == "down");
+    valid_direction = direction in ("left", "right", "up", "down");
     if not valid_direction:
         raise AssertionError("Invalid direction passed in")
 
