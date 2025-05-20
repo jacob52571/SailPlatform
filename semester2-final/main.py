@@ -1,4 +1,5 @@
-# imports?
+# imports
+import sys
 
 # constants
 allowed_letters: list[str] = ['p', 'k', 'h', 'l', 'm', 'n', 'w', 'a', 'e', 'i', 'o', 'u', "'", " "]
@@ -6,28 +7,44 @@ consonants: str = "bcdfghjklmnpqrstvwxyz"
 
 # get the message to pronounce in a loop
 while True:
-    word_hawaiian: str = input("What word do you want to pronounce? ")
+    word_hawaiian: str = input("What word do you want to pronounce? ").lower().strip()
     word_pronunciation: str = ""
     num_characters_to_skip: int = 0
+    is_invalid: bool = False
     x: int
     for x in range(0, len(word_hawaiian)):
         if word_hawaiian[x] not in allowed_letters:
-            #todo permanently stop the program once an invalid character was detected
             print(str(word_hawaiian[x]) + " is not a valid character.")
-            continue
+            is_invalid = True
+            break
+        # because w has a special rule, we handle it first
+        if word_hawaiian[x] == "w" and x > 0:
+            if word_hawaiian[x - 1] == "i" or word_hawaiian[x - 1] == "e":
+                word_pronunciation += "v"
+                continue
         if word_hawaiian[x] in consonants:
             word_pronunciation += word_hawaiian[x]
             continue
+        # handle spaces
+        if word_hawaiian[x] == " ":
+            if word_pronunciation[-1] == "-":
+                word_pronunciation = word_pronunciation[:-1]
+            word_pronunciation += " "
+            continue
+        # handle dashes
+        if word_hawaiian[x] == "'":
+            if word_pronunciation[-1] == "-":
+                word_pronunciation = word_pronunciation[:-1]
+            word_pronunciation += "'"
+            continue
         # if we're here, then x is a vowel
         # we should check if x is the last character, or else we get out of bounds
-        is_last_character: bool = False
+        is_last_character: bool = x == len(word_hawaiian) - 1
 
         # if we need to skip characters because they were part of a group, then check it here
         if num_characters_to_skip > 0:
             num_characters_to_skip -= 1
             continue
-        if x == len(word_hawaiian) - 1:
-            is_last_character = True
         if word_hawaiian[x] == "a":
             if is_last_character:
                 word_pronunciation += "ah-"
@@ -77,5 +94,14 @@ while True:
                 num_characters_to_skip += 1
             else:
                 word_pronunciation += "oo-"
-    print(word_hawaiian.upper() + " is pronounced " + word_pronunciation[:-1].capitalize())
-    #todo check if the user wants to add another word
+
+    if not is_invalid:
+        print(word_hawaiian.upper() + " is pronounced " + word_pronunciation[:-1].capitalize())
+        while True:
+            answer = input("Do you want to enter another word? (y/yes/n/no): ").lower()
+            if answer == "n" or answer == "no":
+                sys.exit(0)
+            elif answer == "y" or answer == "yes":
+                break
+            else:
+                print("That's not an option.")
