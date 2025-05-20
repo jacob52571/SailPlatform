@@ -332,7 +332,7 @@ def swipe_left(board):
                 continue
 
             #YOUR COMMENT HERE
-            if left_adjacent == None:
+            if left_adjacent is None:
                 continue
 
             #YOUR COMMENT HERE
@@ -359,7 +359,7 @@ def swipe_right(board):
             if piece_at_xy == '*':
                 continue
 
-            if right_adjacent == None:
+            if right_adjacent is None:
                 continue
 
             action_taken = move(x, y, "right", board) or action_taken
@@ -381,7 +381,7 @@ def swipe_up(board):
             if piece_at_xy == '*':
                 continue
 
-            if up_adjacent == None:
+            if up_adjacent is None:
                 continue
 
             action_taken = move(x, y, "up", board) or action_taken
@@ -407,7 +407,7 @@ def swipe_down(board):
             if piece_at_xy == '*':
                 continue
 
-            if down_adjacent == None:
+            if down_adjacent is None:
                 continue
 
             action_taken = move(x, y, "down", board) or action_taken
