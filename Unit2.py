@@ -1,10 +1,9 @@
 def time_color(time):
     if time > 10:
         return "black"
-    elif time > 5:
+    if time > 5:
         return "orange"
-    else:
-        return "red"
+    return "red"
 
 # Assert statements to check validity of code
 # assert time_color(25) == 'black'
@@ -22,12 +21,11 @@ COLORS = ["red", "orange", "blue", "green", "yellow", "pink", "black", "gray",
 def is_correct(bg_color, text_color, text, input_color, mode):
     if mode == 'Background Color':
         return input_color == bg_color
-    elif mode == 'Text Color':
+    if mode == 'Text Color':
         return input_color == text_color
-    elif mode == 'Text':
+    if mode == 'Text':
         return input_color == text
-    else:
-        return input_color in COLORS and input_color not in [bg_color, text_color, text]
+    return input_color in COLORS and input_color not in [bg_color, text_color, text]
 
 # Assert statements to check validity of your code
 # assert is_correct('black', 'red', 'blue', 'blue', 'Background Color') == False
@@ -74,9 +72,7 @@ def make_field(content, length):
         return "|" + content.rjust(length - 1) + " |"
     if len(content) == length - 2:
         return "| " + content + " |"
-    else:
-        return "| " + content[0:length - 2] + " |"
-        
+    return "| " + content[0:length - 2] + " |"
 ########################################################################################################################
 
 # TODO 4: Place your code for `make_line` here
@@ -104,8 +100,7 @@ import math
 def compound_interest(init_principal, acc_rate, acc_cmp_freq, years):
     if acc_cmp_freq == 0:
         return init_principal * math.e ** (acc_rate * years)
-    else:
-        return init_principal * (1 + (acc_rate / acc_cmp_freq)) ** (acc_cmp_freq * years)
+    return init_principal * (1 + (acc_rate / acc_cmp_freq)) ** (acc_cmp_freq * years)
 
 ########################################################################################################################
 
@@ -139,8 +134,7 @@ def check_if_two_digits(number):
 def compound_interest(init_principal, acc_rate, acc_cmp_freq, years):
     if acc_cmp_freq == 0:
         return init_principal * math.e ** (acc_rate * years)
-    else:
-        return init_principal * (1 + (acc_rate / acc_cmp_freq)) ** (acc_cmp_freq * years)
+    return init_principal * (1 + (acc_rate / acc_cmp_freq)) ** (acc_cmp_freq * years)
 
 # TODO 7: Place your code for `simulate_account_balance` here
 def simulate_account_balance(init_principal, acc_rate, acc_cmp_freq, setup_fee, years):
@@ -167,8 +161,7 @@ def make_field(content, length):
         return "|" + content.rjust(length - 1) + " |"
     if len(content) == length - 2:
         return "| " + content + " |"
-    else:
-        return "| " + content[0:length - 2] + " |"
+    return "| " + content[0:length - 2] + " |"
 
 # TODO 4: Place your code for `make_line` here
 def make_line(length):
@@ -221,8 +214,7 @@ def make_field(content, length):
         return "|" + content.rjust(length - 1) + " |"
     if len(content) == length - 2:
         return "| " + content + " |"
-    else:
-        return "| " + content[0:length - 2] + " |"
+    return "| " + content[0:length - 2] + " |"
 
 # TODO 4: Place your code for `make_line` here
 def make_line(length):
@@ -233,8 +225,7 @@ import math
 def compound_interest(init_principal, acc_rate, acc_cmp_freq, years):
     if acc_cmp_freq == 0:
         return init_principal * math.e ** (acc_rate * years)
-    else:
-        return init_principal * (1 + (acc_rate / acc_cmp_freq)) ** (acc_cmp_freq * years)
+    return init_principal * (1 + (acc_rate / acc_cmp_freq)) ** (acc_cmp_freq * years)
 
 def simulate_account_balance(init_principal, acc_rate, acc_cmp_freq, setup_fee, years):
     res_list = []

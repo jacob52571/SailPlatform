@@ -107,9 +107,9 @@ def fib(n):
     # Return None if any of the above is True.
     if n < 0 or type(n) != int:
         return None
-    elif n == 0:
+    if n == 0:
         return 0
-    elif n == 1 or n == 2:
+    if n == 1 or n == 2:
         return 1
     v1, v2, v3 = 1, 1, 0
     for rec in bin(n)[3:]:

@@ -11,10 +11,9 @@ def combination_theorem(row_num):
 def factorial(num):
     if num == 0:
         return 1
-    elif num == 1:
+    if num == 1:
         return 1
-    else:
-        return num * factorial(num - 1)
+    return num * factorial(num - 1)
 
 def format_row(row):
     row = [str(x) for x in row]

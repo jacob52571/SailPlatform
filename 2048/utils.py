@@ -161,7 +161,7 @@ def move_possible(x, y, board):
     piece_at_xy = starter.get_piece(x, y, board);
     if piece_at_xy == None:
         return False;
-    elif piece_at_xy == '*':    #An empty space means a move is always possible
+    if piece_at_xy == '*':    #An empty space means a move is always possible
         return True;
 
     return (
@@ -202,16 +202,16 @@ def move(x, y, direction, board):
     if adjacent[0] == None:                                             #Edge of the board case (no action taken)
         return False;
 
-    elif piece_at_xy != adjacent[0] and adjacent[0] != '*':             #Can't combine two numbers case (no action taken)
+    if piece_at_xy != adjacent[0] and adjacent[0] != '*':             #Can't combine two numbers case (no action taken)
         return False;
 
-    elif adjacent[0] == '*':                                            #Empty spot adjacent case (recursive movement in direction)
+    if adjacent[0] == '*':                                            #Empty spot adjacent case (recursive movement in direction)
         starter.place_piece('*', x, y, board);
         starter.place_piece(piece_at_xy, adjacent[1], adjacent[2], board);
         move(adjacent[1], adjacent[2], direction, board);
         return True;
 
-    elif piece_at_xy == adjacent[0]:                                    #Adjacent same numbers case (combine them)
+    if piece_at_xy == adjacent[0]:                                    #Adjacent same numbers case (combine them)
         starter.place_piece('*', x, y, board);
         starter.place_piece(str(int(adjacent[0]) * 2), adjacent[1], adjacent[2], board);
         move(adjacent[1], adjacent[2], direction, board);
