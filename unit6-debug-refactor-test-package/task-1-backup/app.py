@@ -28,12 +28,12 @@ class AppEngine:
     def execute_command(self,cmd):
         if self.correct_answer is not None:
             self.process_answer(cmd)
-        elif cmd == 'q' or cmd == 'quit':
+        elif cmd in ('q', 'quit'):
             self.continue_execution = False
             self.message = 'Have a nice day!'
-        elif cmd == 'a' or cmd == 'ask':
+        elif cmd in ('a', 'ask'):
             self.process_ask()
-        elif cmd == 'l' or cmd == 'list':
+        elif cmd in ('l', 'list'):
             self.shopping_list.refresh(item_pool = self.items)
             self.message = (f'Shopping list with {len(self.shopping_list)} items has been created.')
         elif cmd.startswith('show'):
