@@ -143,7 +143,8 @@ def get_piece(x, y, board):
     """
     
     #Ensure that x and y are both integers (use assert)
-    assert type(x) == int and type(y) == int
+    if not (type(x) == int and type(y) == int):
+        raise AssertionError
 
     #What does this do?
     N = len(board)
@@ -169,7 +170,8 @@ def place_piece(piece, x, y, board):
     """
     
     #Ensure that x and y are both integers (use assert)
-    assert type(x) == int and type(y) == int
+    if not (type(x) == int and type(y) == int):
+        raise AssertionError
 
     #What are the dimensions of the board?
     board_size = len(board)

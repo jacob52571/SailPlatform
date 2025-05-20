@@ -42,12 +42,14 @@ def tests_2048():
                 result = (None == starter.get_piece(-1, -1, board)          ==
                                   starter.get_piece(N, N, board)
                          );
-                assert result, "Not returning None properly during an invalid get or misunderstanding of spec w/ invalid inputs";
+                if not result:
+                    raise AssertionError("Not returning None properly during an invalid get or misunderstanding of spec w/ invalid inputs")
 
                 result = (False == starter.place_piece('*', -1, -1, board)  ==
                                    starter.place_piece('*', N, N, board)
                          );
-                assert result, "Not returning False properly during an invalid place or misunderstanding of spec w/ invalid inputs";
+                if not result:
+                    raise AssertionError("Not returning False properly during an invalid place or misunderstanding of spec w/ invalid inputs")
 
 
                 #Tests that getting what was placed is possible
@@ -55,15 +57,19 @@ def tests_2048():
                 for y in range(N):
                     for x in range(N):
                         starter.place_piece(to_place, x, y, board);
-                        assert to_place == starter.get_piece(x, y, board), ("Placed a piece at ", x, ", ", y, " but did not get same piece back");
+                        if to_place != starter.get_piece(x, y, board):
+                            raise AssertionError("Placed a piece at ", x, ", ", y, " but did not get same piece back")
                         to_place = chr(ord(to_place) + 1);
 
-                assert utils.board_full(board), "N by N Board needs to be full after N*N calls to place_piece at different (x,y) coordinates";
+                if not utils.board_full(board):
+                    raise AssertionError("N by N Board needs to be full after N*N calls to place_piece at different (x,y) coordinates")
 
                 #Checks against data abstraction violations
                 temp_board = utils.make_board(10);
-                assert starter.place_piece('7', 7, 7, temp_board) != False, "Abstraction violation. Hard-coded bounds in place_piece. Use the board's dimensions";
-                assert starter.get_piece(7, 7, temp_board) != None, "Abstraction violation. Hard-coded bounds in get_piece. Use the board's dimensions";
+                if starter.place_piece('7', 7, 7, temp_board) == False:
+                    raise AssertionError("Abstraction violation. Hard-coded bounds in place_piece. Use the board's dimensions")
+                if starter.get_piece(7, 7, temp_board) == None:
+                    raise AssertionError("Abstraction violation. Hard-coded bounds in get_piece. Use the board's dimensions")
 
 
                 print("Test passed.");
@@ -84,7 +90,8 @@ def tests_2048():
                 utils.print_board(board);
                 print("There should be ", (i+1)*(j+1), " spots filled. Pausing for 2 seconds...");
                 utils.pause(2);
-            assert utils.board_full(board), "N by N Board needs to be full after N*N calls to place_random";
+            if not utils.board_full(board):
+                raise AssertionError("N by N Board needs to be full after N*N calls to place_random")
 
             board = utils.make_board(10);
             while not utils.board_full(board):
@@ -102,12 +109,18 @@ def tests_2048():
                         print("Incorrect piece found: ", piece);
                         print("Examine to_place and place piece more carefully... Quitting now");
 
-            assert empty == 0, "If board is full, there shouldn't be empty spaces";
-            assert two > four > eight, "Test failed. Ratio is improbable";
-            assert 75 >= two >= 45, "There don't seem to be enough 2's. Test failed.";
-            assert 50 >= four >= 25, "There don't seem to be enough 4's. Test failed.";
-            assert 10 >= eight >= 1, "There don't seem to be enough 8's. Test failed ... BUT retry 1 time";
-            assert two + four + eight == 100, "There should only be 2s, 4s, and 8s placed by random";
+            if empty != 0:
+                raise AssertionError("If board is full, there shouldn't be empty spaces")
+            if not two > four > eight:
+                raise AssertionError("Test failed. Ratio is improbable")
+            if not 75 >= two >= 45:
+                raise AssertionError("There don't seem to be enough 2's. Test failed.")
+            if not 50 >= four >= 25:
+                raise AssertionError("There don't seem to be enough 4's. Test failed.")
+            if not 10 >= eight >= 1:
+                raise AssertionError("There don't seem to be enough 8's. Test failed ... BUT retry 1 time")
+            if two + four + eight != 100:
+                raise AssertionError("There should only be 2s, 4s, and 8s placed by random")
 
             print("");
             print("Ensure the ratio is roughly 60/37/3: ");
@@ -123,9 +136,11 @@ def tests_2048():
         ###########################
         #Test case: have_lost ('3')
         elif key == 51:
-            assert not starter.have_lost(board), "An empty board should not lose";
+            if starter.have_lost(board):
+                raise AssertionError("An empty board should not lose")
             starter.place_piece('0', 0, 0, board);
-            assert not starter.have_lost(board), "A board with 1 piece should not lose";
+            if starter.have_lost(board):
+                raise AssertionError("A board with 1 piece should not lose")
 
 
             board = utils.make_board(2);
@@ -133,14 +148,16 @@ def tests_2048():
             starter.place_piece('0', 1, 0, board);
             starter.place_piece('0', 0, 1, board);
             starter.place_piece('0', 1, 1, board);
-            assert not starter.have_lost(board), "A full board but with possible moves should not lose";
+            if starter.have_lost(board):
+                raise AssertionError("A full board but with possible moves should not lose")
 
             board = utils.make_board(2);
             starter.place_piece('1', 0, 0, board);
             starter.place_piece('0', 1, 0, board);
             starter.place_piece('0', 0, 1, board);
             starter.place_piece('1', 1, 1, board);
-            assert starter.have_lost(board), "A full board with no possible moves should lose";
+            if not starter.have_lost(board):
+                raise AssertionError("A full board with no possible moves should lose")
 
             print("Test passed.");
             board = utils.make_board(N);      #Clears the board
@@ -166,7 +183,8 @@ def tests_2048():
             starter.end_move(board);
             after = time.time();
 
-            assert after - now > .2, ("Not pausing correctly in end_move -- review instructions carefully -- execution took " + str(after - now) + " seconds");
+            if after - now <= .2:
+                raise AssertionError("Not pausing correctly in end_move -- review instructions carefully -- execution took " + str(after - now) + " seconds")
             utils.clear();
             print("Execution of single function should take between .2 and .6 seconds at most.\nYour execution took ", str(after-now));
             print("");
@@ -177,16 +195,20 @@ def tests_2048():
         ###########################
         #Test case: swap_possible ('5')
         elif key == 53:
-            assert not starter.swap_possible(board), "An empty board cannot perform swap";
+            if starter.swap_possible(board):
+                raise AssertionError("An empty board cannot perform swap")
 
             starter.place_piece('0', 0, 0, board);
-            assert not starter.swap_possible(board), "A board with 1 piece cannot perform swap";
+            if starter.swap_possible(board):
+                raise AssertionError("A board with 1 piece cannot perform swap")
 
             starter.place_piece('0', 1, 1, board);
-            assert not starter.swap_possible(board), "A board with 2 identical pieces cannot perform swap";
+            if starter.swap_possible(board):
+                raise AssertionError("A board with 2 identical pieces cannot perform swap")
 
             starter.place_piece('1', 0, 1, board);
-            assert starter.swap_possible(board), "A board with 2 unique pieces should be able to perform swap";
+            if not starter.swap_possible(board):
+                raise AssertionError("A board with 2 unique pieces should be able to perform swap")
 
             print("Test passed.");
             board = utils.make_board(N);      #Clears the board
@@ -194,33 +216,46 @@ def tests_2048():
         ###########################
         #Test case: swap ('6')
         elif key == 54:
-            assert not starter.swap(board), "An empty board should not perform swap";
+            if starter.swap(board):
+                raise AssertionError("An empty board should not perform swap")
 
             starter.place_piece('2', 0, 0, board);
-            assert not starter.swap(board), "A board with 1 piece should not perform swap";
+            if starter.swap(board):
+                raise AssertionError("A board with 1 piece should not perform swap")
 
             starter.place_piece('2', 1, 1, board);
-            assert not starter.swap(board), "A board with 2 identical pieces should not perform swap";
+            if starter.swap(board):
+                raise AssertionError("A board with 2 identical pieces should not perform swap")
 
             # check the basic swap situation
             board = utils.make_board(4);
             starter.place_piece('2', 0, 0, board);
             starter.place_piece('4', 1, 0, board);
-            assert starter.swap(board), "A board with 2 unique pieces should perform swap";
-            assert starter.get_piece(0,0,board)=='4', "The pieces are not correctly swapped. check your swap functions again.";
-            assert starter.get_piece(1,0,board)=='2', "The pieces are not correctly swapped. check your swap functions again.";
-            assert starter.get_piece(0,1,board)=='*', "There shoudn't be pieces added to empty places. check your swap functions again.";
-            assert starter.get_piece(1,1,board)=='*', "There shoudn't be pieces added to empty places. check your swap functions again.";
+            if not starter.swap(board):
+                raise AssertionError("A board with 2 unique pieces should perform swap")
+            if starter.get_piece(0,0,board) != '4':
+                raise AssertionError("The pieces are not correctly swapped. check your swap functions again.")
+            if starter.get_piece(1,0,board) != '2':
+                raise AssertionError("The pieces are not correctly swapped. check your swap functions again.")
+            if starter.get_piece(0,1,board) != '*':
+                raise AssertionError("There shoudn't be pieces added to empty places. check your swap functions again.")
+            if starter.get_piece(1,1,board) != '*':
+                raise AssertionError("There shoudn't be pieces added to empty places. check your swap functions again.")
 
             # check against static swap situations
             board = utils.make_board(4);
             starter.place_piece('2', 0, 0, board);
             starter.place_piece('4', 1, 1, board);
-            assert starter.swap(board), "A board with 2 unique pieces should perform swap";
-            assert starter.get_piece(0,0,board)=='4', "The pieces are not correctly swapped. \nYou shoudn't swap randomly, not staticly. \ncheck your swap functions again.";
-            assert starter.get_piece(1,1,board)=='2', "The pieces are not correctly swapped. \nYou shoudn't swap randomly, not staticly. \ncheck your swap functions again.";
-            assert starter.get_piece(0,1,board)=='*', "There shoudn't be pieces added to empty places. check your swap functions again.";
-            assert starter.get_piece(1,0,board)=='*', "There shoudn't be pieces added to empty places. check your swap functions again.";
+            if not starter.swap(board):
+                raise AssertionError("A board with 2 unique pieces should perform swap")
+            if starter.get_piece(0,0,board) != '4':
+                raise AssertionError("The pieces are not correctly swapped. \nYou shoudn't swap randomly, not staticly. \ncheck your swap functions again.")
+            if starter.get_piece(1,1,board) != '2':
+                raise AssertionError("The pieces are not correctly swapped. \nYou shoudn't swap randomly, not staticly. \ncheck your swap functions again.")
+            if starter.get_piece(0,1,board) != '*':
+                raise AssertionError("There shoudn't be pieces added to empty places. check your swap functions again.")
+            if starter.get_piece(1,0,board) != '*':
+                raise AssertionError("There shoudn't be pieces added to empty places. check your swap functions again.")
 
 
             #check against swapping of multiple pieces
@@ -228,21 +263,32 @@ def tests_2048():
             starter.place_piece('2', 0, 0, board);
             starter.place_piece('4', 0, 1, board);
             starter.place_piece('8', 1, 0, board);
-            assert starter.swap(board), "A board with 3 unique pieces should perform swap";
+            if not starter.swap(board):
+                raise AssertionError("A board with 3 unique pieces should perform swap")
             if starter.get_piece(0,0,board)=='2':
-                assert starter.get_piece(0,1,board)=='8', "The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.";
-                assert starter.get_piece(1,0,board)=='4', "The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.";
-                assert starter.get_piece(1,1,board)=='*', "There shoudn't be pieces added to empty places. check your swap function again.";
+                if starter.get_piece(0,1,board) != '8':
+                    raise AssertionError("The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.")
+                if starter.get_piece(1,0,board) != '4':
+                    raise AssertionError("The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.")
+                if starter.get_piece(1,1,board) != '*':
+                    raise AssertionError("There shoudn't be pieces added to empty places. check your swap function again.")
             elif starter.get_piece(0,0,board)=='4':
-                assert starter.get_piece(0,1,board)=='2', "The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.";
-                assert starter.get_piece(1,0,board)=='8', "The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.";
-                assert starter.get_piece(1,1,board)=='*', "There shoudn't be pieces added to empty places. check your swap function again.";
+                if starter.get_piece(0,1,board) != '2':
+                    raise AssertionError("The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.")
+                if starter.get_piece(1,0,board) != '8':
+                    raise AssertionError("The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.")
+                if starter.get_piece(1,1,board) != '*':
+                    raise AssertionError("There shoudn't be pieces added to empty places. check your swap function again.")
             elif starter.get_piece(0,0,board)=='8':
-                assert starter.get_piece(0,1,board)=='4', "The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.";
-                assert starter.get_piece(1,0,board)=='2', "The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.";
-                assert starter.get_piece(1,1,board)=='*', "There shoudn't be pieces added to empty places. check your swap function again.";
+                if starter.get_piece(0,1,board) != '4':
+                    raise AssertionError("The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.")
+                if starter.get_piece(1,0,board) != '2':
+                    raise AssertionError("The pieces are not correctly swapped. \nMultiple swaps probably occurred. \ncheck your swap function again.")
+                if starter.get_piece(1,1,board) != '*':
+                    raise AssertionError("There shoudn't be pieces added to empty places. check your swap function again.")
             else:
-                assert False,"Improper swaps occurred. Check your swap function again";
+                if not False:
+                    raise AssertionError("Improper swaps occurred. Check your swap function again")
 
 
             print("Test passed.");
