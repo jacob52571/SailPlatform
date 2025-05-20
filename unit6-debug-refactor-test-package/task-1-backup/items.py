@@ -42,13 +42,13 @@ class Item:
         if leading_dash:
             dash = '- '
         return f'{dash}{self.name}{qnt_str} ...{"." * padding} {prcStr}'
-    
+
     def __repr__(self):
         return f'Item({self.name}, {self.price})'
-    
+
     def __eq__(self, other):
         return isinstance(other, Item) and self.name == other.name and self.price == other.price
-           
+
 
 class ItemPool:
     def __init__(self, items = None):
@@ -89,7 +89,7 @@ class ItemPool:
             item = self.items[item_name]
             out += item.item2line(padding=max_name - len(item_name), order=max_order) + '\n'
         return out
-    
+
     def __repr__(self):
         return f'ItemPool({self.items})'
 

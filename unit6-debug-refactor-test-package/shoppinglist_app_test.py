@@ -15,7 +15,7 @@ def test_valid_item_init():
         raise AssertionError
     if not math.isclose(item.price, 3.25):
         raise AssertionError
-    
+
 
 def test_invalid_item_init():
     with pytest.raises(InvalidItemNameError):
@@ -31,8 +31,8 @@ def test_item_get_order():
     item.price = 1000.0
     if item.get_order() != 3:
         raise AssertionError
-    
-    
+
+
 def test_item_get_list_item_str():
     item = Item('bread', 3.25)
     if item.get_list_item_str() != '- bread':
@@ -43,7 +43,7 @@ def test_item_get_list_item_str():
         quantity=2, leading_dash=True) != '- bread (2x)':
         raise AssertionError
 
-    
+
 def test_item_get_price_str():
     item = Item('bread', 3.25)
     if item.get_price_str() != '$3.25':
@@ -52,13 +52,13 @@ def test_item_get_price_str():
         raise AssertionError
     if item.get_price_str(order=3) != '$0003.25':
         raise AssertionError
-    
-    
+
+
 def test_item_repr():
     item = Item('bread', 3.25)
     if repr(item) != 'Item(bread, 3.25)':
         raise AssertionError
-    
+
 def test_item_eq():
     item1 = Item('bread', 3.25)
     item2 = Item('bread', 3.25)
@@ -102,26 +102,26 @@ def test_item_pool():
         raise AssertionError
     if item_pool1.sample_items(1) != [Item("bread", 3.25)]:
         raise AssertionError
-    
+
     #errors
     with pytest.raises(InvalidItemPoolError):
         item_pool_fail_1 = ItemPool("test")
 
     with pytest.raises(InvalidItemPriceError):
         item_fail_1 = Item("test", "test")
-    
+
     with pytest.raises(InvalidItemPoolError):
         item_pool_fail_2 = ItemPool({6: Item("test", 2.35)})
-    
+
     with pytest.raises(InvalidItemPoolError):
         item_pool_fail_2 = ItemPool({"test": "no"})
-    
+
     with pytest.raises(InvalidItemPoolError):
         item_pool1.add_item("test")
-    
+
     with pytest.raises(DuplicateItemError):
         item_pool1.add_item(item1)
-    
+
     with pytest.raises(NonExistingItemError):
         item_pool1.remove_item("test")
 
@@ -149,10 +149,10 @@ def test_shopping_list():
     # errors
     with pytest.raises(ValueError):
         shopping_list_fail_1 = ShoppingList(size="e", item_pool=item_pool)
-    
+
     with pytest.raises(ValueError):
         shopping_list_fail_2 = ShoppingList(quantities=5, item_pool=item_pool)
-    
+
     with pytest.raises(ValueError):
         shopping_list_fail_3 = ShoppingList(quantities=["test"], item_pool=item_pool)
 
