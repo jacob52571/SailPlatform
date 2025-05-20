@@ -96,11 +96,11 @@ def update_item(orig_item, new_item, container, multi = True):
             return container
         container.update({orig_item: new_item})
         return container
-    elif isinstance(container, set):
+    if isinstance(container, set):
         container.remove(orig_item)
         container.add(new_item)
         return container
-    elif isinstance(container, tuple):
+    if isinstance(container, tuple):
         container = list(container)
         new_container = []
         has_replaced = False
